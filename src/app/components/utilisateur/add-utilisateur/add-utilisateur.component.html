@@ -1,0 +1,84 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Utilisateurs</a></li>
+    <li class="breadcrumb-item active" aria-current="page">add-utilisateur</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">ADD-UTILISATEUR</h6>
+        <form>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Nom Complete</label>
+                <input type="text" class="form-control" placeholder="Enter full name">
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="text" class="form-control" placeholder="Enter email">
+              </div>
+            </div><!-- Col -->
+          </div><!-- Row -->
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="text" class="form-control" placeholder="Enter password">
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input type="text" class="form-control" placeholder="Enter address">
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Telephone</label>
+                <input type="text" class="form-control" placeholder="Enter telephone">
+              </div>
+            </div><!-- Col -->
+          </div><!-- Row -->
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label" for="dateNaissance"><strong>Date Naissance</strong></label>
+                <input class="form-control" type="date" id="dateNaissance" placeholder="dateNaissance" name="dateExpiration" required>
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label" for="role"><strong>Role</strong></label>
+                <div id="floating-label-1" class="form-floating mb-3">
+                  <select class="form-select form-select" id="role" formControlName="role">
+                    <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+                  </select>
+                  <label class="form-label" for="role">Sélectionner...</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label" for="genre"><strong>Genre</strong></label>
+                <div class="form-floating mb-3">
+                  <select class="form-select form-select" id="genre" formControlName="genre">
+                    <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+                  </select>
+                  <label class="form-label" for="genre">Sélectionner...</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <button type="button" class="btn btn-primary submit">Submit form</button>
+        <button class="btn btn-secondary" style="margin-left: 20px">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
