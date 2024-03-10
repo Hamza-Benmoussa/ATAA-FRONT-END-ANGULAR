@@ -9,6 +9,7 @@ import {ListUtilisateurComponent} from "./list-utilisateur/list-utilisateur.comp
 import {UpdateUtilisateurComponent} from "./update-utilisateur/update-utilisateur.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {AuthGuardService} from "../../service/guard/auth.guard.service";
 
 
 const routes: Routes = [
@@ -18,15 +19,18 @@ const routes: Routes = [
     children: [
       {
         path: 'add-utilisateur',
-        component: AddUtilisateurComponent
+        component: AddUtilisateurComponent,
+        canActivate : [AuthGuardService],data:{role:['AdminApp']}
       },
       {
         path: 'list-utilisateur',
-        component: ListUtilisateurComponent
+        component: ListUtilisateurComponent,
+        canActivate : [AuthGuardService],data:{role:['AdminApp']}
       },
       {
-        path: 'update-utilisateur',
-        component: UpdateUtilisateurComponent
+        path: 'update-utilisateur/:id',
+        component: UpdateUtilisateurComponent,
+        canActivate : [AuthGuardService],data:{role:['AdminApp']}
       },
 
     ]

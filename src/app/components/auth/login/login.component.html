@@ -1,0 +1,47 @@
+<div class="row w-100 mx-0 auth-page">
+  <div class="col-md-8 col-xl-6 mx-auto">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-4 pe-md-0">
+          <div class="auth-side-wrapper" [ngStyle]="{ 'background-image': 'url(https://via.placeholder.com/219x452)' }">
+
+          </div>
+        </div>
+        <div class="col-md-8 ps-md-0">
+          <div class="auth-form-wrapper px-4 py-5">
+            <a routerLink="." class="nobleui-logo d-block mb-2">ATAA<span></span></a>
+            <h5 class="text-muted fw-normal mb-4">Bonjour ! Login de votre compte.</h5>
+            <form class="forms-sample" [formGroup]="loginFormGroup" method="post">
+              <div class="mb-3">
+                <label  class="form-label">Email address</label>
+                <input type="email" class="form-control form-font rounded-0 mt-1 mb-3"
+                       [ngClass]="{'is-invalid': submitted && loginFormGroup.controls['username'].errors}" formControlName="username">
+                <div *ngIf="submitted && loginFormGroup.get('username')?.errors" class="invalid-feedback">
+                  <div *ngIf="loginFormGroup.get('username')!.errors?.['required']">
+                    Email is Required
+                  </div>
+                  <div *ngIf="loginFormGroup.get('username')!.errors?.['pattern']">
+                    Please enter a valid Email
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control form-font rounded-0 mt-1 mb-3"
+                       [ngClass]="{'is-invalid': submitted && loginFormGroup.controls['password'].errors}" formControlName="password">
+                <div *ngIf="submitted && loginFormGroup.get('password')?.errors" class="invalid-feedback">
+                  <div *ngIf="loginFormGroup.get('password')!.errors?.['required']">
+                    Password is Required
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button type="button" (click)="onLogin()" class="btn btn-sm btn-primary">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

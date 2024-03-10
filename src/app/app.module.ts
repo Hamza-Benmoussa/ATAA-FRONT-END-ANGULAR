@@ -5,19 +5,30 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
 import { LayoutModule } from './views/layout/layout.module';
-import { AuthGuard } from './core/guard/auth.guard';
 
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 
-import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthInterceptorService} from "./service/interceptor/auth.interceptor.service";
+import { ListKafilaComponent } from './components/kafila/list-kafila/list-kafila.component';
+import { ListDowarComponent } from './components/dowar/list-dowar/list-dowar.component';
+import { AddAssociationComponent } from './components/association/add-association/add-association.component';
+import { AssociationComponent } from './components/association/association.component';
+import { UpdateAssociationComponent } from './components/association/update-association/update-association.component';
+import { ListAssociationComponent } from './components/association/list-association/list-association.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorPageComponent,
+    ListKafilaComponent,
+    ListDowarComponent,
+    AddAssociationComponent,
+    AssociationComponent,
+    UpdateAssociationComponent,
+    ListAssociationComponent
   ],
   imports: [
     BrowserModule,
@@ -28,18 +39,12 @@ import {HttpClientModule} from "@angular/common/http";
     HttpClientModule
   ],
   providers: [
-    AuthGuard,
+
     {
-      provide: HIGHLIGHT_OPTIONS, // https://www.npmjs.com/package/ngx-highlightjs
-      useValue: {
-        coreLibraryLoader: () => import('highlight.js/lib/core'),
-        languages: {
-          xml: () => import('highlight.js/lib/languages/xml'),
-          typescript: () => import('highlight.js/lib/languages/typescript'),
-          scss: () => import('highlight.js/lib/languages/scss'),
-        }
+      provide : HTTP_INTERCEPTORS,
+      useClass : AuthInterceptorService,
+      multi : true,
       }
-    }
   ],
   bootstrap: [AppComponent]
 })

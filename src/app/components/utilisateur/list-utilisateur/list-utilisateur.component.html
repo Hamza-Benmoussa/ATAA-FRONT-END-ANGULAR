@@ -41,7 +41,7 @@
               <td>{{ utilisateur.roleUser }}</td>
               <td>{{ utilisateur.genre }}</td>
               <td>
-                <button class="btn btn-info btn-sm" (click)="false">Update</button>
+                <button class="btn btn-info btn-sm" routerLink="/utilisateur/update-utilisateur/{{utilisateur.id}}">Update</button>
                 <button class="btn btn-danger btn-sm" style="margin-left: 10px" (click)="deleteUtilisateur(utilisateur.id)">Delete</button>
               </td>
             </tr>

@@ -21,7 +21,7 @@
 
     <!--- Sidemenu start -->
 
-    <ul class="sidebar-nav metismenu" id="sidebar-menu" #sidebarMenu>
+    <ul class="sidebar-nav metismenu" id="sidebar-menu" #sidebarMenu *ngIf="isAuthenticated">
       <ng-container *ngFor="let item of menuItems">
         <li class="nav-item nav-category" *ngIf="item.isTitle">{{ item.label }}</li>
 

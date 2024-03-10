@@ -1,1 +1,123 @@
-<p>update-utilisateur works!</p>
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Utilisateurs</a></li>
+    <li class="breadcrumb-item active" aria-current="page">add-utilisateur</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">ADD-UTILISATEUR</h6>
+        <form [formGroup]="updateUtilisateurForm" (ngSubmit)="updateUtilisateur()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Nom Complete</label>
+                <input type="text" class="form-control" placeholder="Enter full name" formControlName="nomComplete">
+                <div *ngIf="updateUtilisateurForm.get('nomComplete')?.hasError('required') && updateUtilisateurForm.get('nomComplete')?.touched" class="text-danger">
+                  Le nom complet est requis.
+                </div>
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="text" class="form-control" placeholder="Enter email" formControlName="email">
+                <div *ngIf="updateUtilisateurForm.get('email')?.hasError('required') && updateUtilisateurForm.get('email')?.touched" class="text-danger">
+                  L'adresse e-mail est requise.
+                </div>
+                <div *ngIf="updateUtilisateurForm.get('email')?.hasError('email') && updateUtilisateurForm.get('email')?.touched" class="text-danger">
+                  Veuillez saisir une adresse e-mail valide.
+                </div>
+
+              </div>
+            </div><!-- Col -->
+          </div><!-- Row -->
+
+          <!-- Répétez le même modèle pour d'autres champs du formulaire -->
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="text" class="form-control" placeholder="Enter password" formControlName="password">
+                <div *ngIf="updateUtilisateurForm.get('password')?.hasError('required') && updateUtilisateurForm.get('password')?.touched" class="text-danger">
+                  Le mot de passe est requis.
+                </div>
+                <div *ngIf="updateUtilisateurForm.get('password')?.hasError('minlength') && updateUtilisateurForm.get('password')?.touched" class="text-danger">
+                  Le mot de passe doit avoir au moins 6 caractères.
+                </div>
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input type="text" class="form-control" placeholder="Enter address" formControlName="address">
+                <div *ngIf="updateUtilisateurForm.get('address')?.hasError('required') && updateUtilisateurForm.get('address')?.touched" class="text-danger">
+                  L'adresse est requise.
+                </div>
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Telephone</label>
+                <input type="text" class="form-control" placeholder="Enter telephone" formControlName="tele">
+                <div *ngIf="updateUtilisateurForm.get('tele')?.hasError('required') && updateUtilisateurForm.get('tele')?.touched" class="text-danger">
+                  Le numéro de téléphone est requis.
+                </div>
+                <div *ngIf="updateUtilisateurForm.get('tele')?.hasError('pattern') && updateUtilisateurForm.get('tele')?.touched" class="text-danger">
+                  Veuillez saisir un numéro de téléphone valide.
+                </div>
+              </div>
+            </div><!-- Col -->
+          </div><!-- Row -->
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label" for="dateNaissance"><strong>Date Naissance</strong></label>
+                <input class="form-control" type="date" id="dateNaissance" placeholder="dateNaissance" name="dateNaissance" formControlName="dateNaissance" required>
+                <div *ngIf="updateUtilisateurForm.get('dateNaissance')?.hasError('required') && updateUtilisateurForm.get('dateNaissance')?.touched" class="text-danger">
+                  La date de naissance est requise.
+                </div>
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label" for="role"><strong>Role</strong></label>
+                <div id="floating-label-1" class="form-floating mb-3">
+                  <select class="form-select form-select" id="role" formControlName="roleUser">
+                    <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+                  </select>
+                  <label class="form-label" for="role">Sélectionner...</label>
+                </div>
+                <div *ngIf="updateUtilisateurForm.get('roleUser')?.hasError('required') && updateUtilisateurForm.get('roleUser')?.touched" class="text-danger">
+                  Le role est requis.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label" for="genre"><strong>Genre</strong></label>
+                <div class="form-floating mb-3">
+                  <select class="form-select form-select" id="genre" formControlName="genre">
+                    <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+                  </select>
+                  <label class="form-label" for="genre">Sélectionner...</label>
+                </div>
+                <div *ngIf="updateUtilisateurForm.get('genre')?.hasError('required') && updateUtilisateurForm.get('genre')?.touched" class="text-danger">
+                  Le genre est requis.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary submit">Update</button>
+          <button type="button" class="btn btn-secondary" routerLink="/utilisateur/list-utilisateur" style="margin-left: 20px">Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

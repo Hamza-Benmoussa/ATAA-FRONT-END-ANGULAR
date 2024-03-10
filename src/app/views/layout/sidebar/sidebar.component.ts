@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Renderer2, Inject } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, AfterViewInit, Renderer2, Inject, OnDestroy} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 import MetisMenu from 'metismenujs';
@@ -6,31 +6,34 @@ import MetisMenu from 'metismenujs';
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { Router, NavigationEnd } from '@angular/router';
+import {Subscription} from "rxjs";
+import {LoggerUser} from "../../../model/logger-user";
+import {date} from "ngx-custom-validators/src/app/date/validator";
+import {AuthService} from "../../../service/auth/auth.service";
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit, AfterViewInit {
+export class SidebarComponent implements OnInit, AfterViewInit,OnDestroy {
+
+  userSub !: Subscription;
+  isAuthenticated = false;
+  isAdmin = false;
+  isPresidant = false;
+
 
   @ViewChild('sidebarToggler') sidebarToggler: ElementRef;
 
   menuItems: MenuItem[] = [];
   @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, router: Router) { 
+  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, router: Router,private authService: AuthService) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
 
-        /**
-         * Activating the current active item dropdown
-         */
         this._activateMenuDropdown();
-
-        /**
-         * closing the sidebar
-         */
         if (window.matchMedia('(max-width: 991px)').matches) {
           this.document.body.classList.remove('sidebar-open');
         }
@@ -41,27 +44,29 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.menuItems = MENU;
-
-    /**
-     * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
-     */
+    this.userSub = this.authService.user.subscribe(loggedUser => {
+      this.isAuthenticated = !!loggedUser;
+      if (!this.isAuthenticated) {
+        this.initializeState();
+      } else if (!!loggedUser) {
+        this.setRole(loggedUser);
+      }
+    });
     const desktopMedium = window.matchMedia('(min-width:992px) and (max-width: 1199px)');
     desktopMedium.addEventListener('change', () => {
       this.iconSidebar;
     });
     this.iconSidebar(desktopMedium);
   }
-
+  initializeState() {
+    this.isAdmin = false;
+    this.isPresidant = false;
+  }
   ngAfterViewInit() {
-    // activate menu item
     new MetisMenu(this.sidebarMenu.nativeElement);
-    
+
     this._activateMenuDropdown();
   }
-
-  /**
-   * Toggle sidebar on hamburger button click
-   */
   toggleSidebar(e: Event) {
     this.sidebarToggler.nativeElement.classList.toggle('active');
     this.sidebarToggler.nativeElement.classList.toggle('not-active');
@@ -74,38 +79,33 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     }
   }
 
+  setRole(loggedUser: LoggerUser | null) {
+    if (loggedUser?.roles.includes("AdminApp"))
+      this.isAdmin = true
+    else if (!!loggedUser?.roles.includes("PresidantAssociation")) {
+      this.isPresidant = true;
+    }
+  }
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
+  }
 
-  /**
-   * Toggle settings-sidebar 
-   */
   toggleSettingsSidebar(e: Event) {
     e.preventDefault();
     this.document.body.classList.toggle('settings-open');
   }
-
-
-  /**
-   * Open sidebar when hover (in folded folded state)
-   */
   operSidebarFolded() {
     if (this.document.body.classList.contains('sidebar-folded')){
       this.document.body.classList.add("open-sidebar-folded");
     }
   }
-
-
-  /**
-   * Fold sidebar after mouse leave (in folded state)
-   */
   closeSidebarFolded() {
     if (this.document.body.classList.contains('sidebar-folded')){
       this.document.body.classList.remove("open-sidebar-folded");
     }
   }
 
-  /**
-   * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
-   */
+
   iconSidebar(mq: MediaQueryList) {
     if (mq.matches) {
       this.document.body.classList.add('sidebar-folded');
@@ -114,10 +114,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     }
   }
 
-
-  /**
-   * Switching sidebar light/dark
-   */
   onSidebarThemeChange(event: Event) {
     this.document.body.classList.remove('sidebar-light', 'sidebar-dark');
     this.document.body.classList.add((<HTMLInputElement>event.target).value);
@@ -134,22 +130,17 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
 
-  /**
-   * Reset the menus then hilight current active menu item
-   */
   _activateMenuDropdown() {
     this.resetMenuItems();
     this.activateMenuItems();
   }
 
 
-  /**
-   * Resets the menus
-   */
+
   resetMenuItems() {
 
     const links = document.getElementsByClassName('nav-link-ref');
-    
+
     for (let i = 0; i < links.length; i++) {
       const menuItemEl = links[i];
       menuItemEl.classList.remove('mm-active');
@@ -158,7 +149,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       if (parentEl) {
           parentEl.classList.remove('mm-active');
           const parent2El = parentEl.parentElement;
-          
+
           if (parent2El) {
             parent2El.classList.remove('mm-show');
           }
@@ -190,21 +181,17 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   };
 
 
-  /**
-   * Toggles the menu items
-   */
   activateMenuItems() {
 
     const links: any = document.getElementsByClassName('nav-link-ref');
 
     let menuItemEl = null;
-    
+
     for (let i = 0; i < links.length; i++) {
-      // tslint:disable-next-line: no-string-literal
         if (window.location.pathname === links[i]['pathname']) {
-          
+
             menuItemEl = links[i];
-            
+
             break;
         }
     }

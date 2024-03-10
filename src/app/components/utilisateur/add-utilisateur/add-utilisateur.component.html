@@ -10,56 +10,91 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-title">ADD-UTILISATEUR</h6>
-        <form>
+        <form [formGroup]="saveUtilisateurForm" (ngSubmit)="saveUtilisateur()">
           <div class="row">
             <div class="col-sm-6">
               <div class="mb-3">
                 <label class="form-label">Nom Complete</label>
-                <input type="text" class="form-control" placeholder="Enter full name">
+                <input type="text" class="form-control" placeholder="Enter full name" formControlName="nomComplete">
+                <div *ngIf="saveUtilisateurForm.get('nomComplete')?.hasError('required') && saveUtilisateurForm.get('nomComplete')?.touched" class="text-danger">
+                  Le nom complet est requis.
+                </div>
               </div>
             </div><!-- Col -->
             <div class="col-sm-6">
               <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="text" class="form-control" placeholder="Enter email">
+                <input type="text" class="form-control" placeholder="Enter email" formControlName="email">
+                <div *ngIf="saveUtilisateurForm.get('email')?.hasError('required') && saveUtilisateurForm.get('email')?.touched" class="text-danger">
+                  L'adresse e-mail est requise.
+                </div>
+                <div *ngIf="saveUtilisateurForm.get('email')?.hasError('email') && saveUtilisateurForm.get('email')?.touched" class="text-danger">
+                  Veuillez saisir une adresse e-mail valide.
+                </div>
+
               </div>
             </div><!-- Col -->
           </div><!-- Row -->
+
+          <!-- Répétez le même modèle pour d'autres champs du formulaire -->
+
           <div class="row">
             <div class="col-sm-4">
               <div class="mb-3">
                 <label class="form-label">Password</label>
-                <input type="text" class="form-control" placeholder="Enter password">
+                <input type="text" class="form-control" placeholder="Enter password" formControlName="password">
+                <div *ngIf="saveUtilisateurForm.get('password')?.hasError('required') && saveUtilisateurForm.get('password')?.touched" class="text-danger">
+                  Le mot de passe est requis.
+                </div>
+                <div *ngIf="saveUtilisateurForm.get('password')?.hasError('minlength') && saveUtilisateurForm.get('password')?.touched" class="text-danger">
+                  Le mot de passe doit avoir au moins 6 caractères.
+                </div>
               </div>
             </div><!-- Col -->
             <div class="col-sm-4">
               <div class="mb-3">
                 <label class="form-label">Address</label>
-                <input type="text" class="form-control" placeholder="Enter address">
+                <input type="text" class="form-control" placeholder="Enter address" formControlName="address">
+                <div *ngIf="saveUtilisateurForm.get('address')?.hasError('required') && saveUtilisateurForm.get('address')?.touched" class="text-danger">
+                  L'adresse est requise.
+                </div>
               </div>
             </div><!-- Col -->
             <div class="col-sm-4">
               <div class="mb-3">
                 <label class="form-label">Telephone</label>
-                <input type="text" class="form-control" placeholder="Enter telephone">
+                <input type="text" class="form-control" placeholder="Enter telephone" formControlName="tele">
+                <div *ngIf="saveUtilisateurForm.get('tele')?.hasError('required') && saveUtilisateurForm.get('tele')?.touched" class="text-danger">
+                  Le numéro de téléphone est requis.
+                </div>
+                <div *ngIf="saveUtilisateurForm.get('tele')?.hasError('pattern') && saveUtilisateurForm.get('tele')?.touched" class="text-danger">
+                  Veuillez saisir un numéro de téléphone valide.
+                </div>
               </div>
             </div><!-- Col -->
           </div><!-- Row -->
+
           <div class="row">
             <div class="col-sm-4">
               <div class="mb-3">
                 <label class="form-label" for="dateNaissance"><strong>Date Naissance</strong></label>
-                <input class="form-control" type="date" id="dateNaissance" placeholder="dateNaissance" name="dateExpiration" required>
+                <input class="form-control" type="date" id="dateNaissance" placeholder="dateNaissance" name="dateNaissance" formControlName="dateNaissance" required>
+                <div *ngIf="saveUtilisateurForm.get('dateNaissance')?.hasError('required') && saveUtilisateurForm.get('dateNaissance')?.touched" class="text-danger">
+                  La date de naissance est requise.
+                </div>
               </div>
             </div><!-- Col -->
             <div class="col-sm-4">
               <div class="mb-3">
                 <label class="form-label" for="role"><strong>Role</strong></label>
                 <div id="floating-label-1" class="form-floating mb-3">
-                  <select class="form-select form-select" id="role" formControlName="role">
+                  <select class="form-select form-select" id="role" formControlName="roleUser">
                     <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
                   </select>
                   <label class="form-label" for="role">Sélectionner...</label>
+                </div>
+                <div *ngIf="saveUtilisateurForm.get('roleUser')?.hasError('required') && saveUtilisateurForm.get('roleUser')?.touched" class="text-danger">
+                  Le role est requis.
                 </div>
               </div>
             </div>
@@ -72,12 +107,16 @@
                   </select>
                   <label class="form-label" for="genre">Sélectionner...</label>
                 </div>
+                <div *ngIf="saveUtilisateurForm.get('genre')?.hasError('required') && saveUtilisateurForm.get('genre')?.touched" class="text-danger">
+                  Le genre est requis.
+                </div>
               </div>
             </div>
           </div>
+
+          <button type="submit" class="btn btn-primary submit">Enregistrer</button>
+          <button type="button" class="btn btn-secondary" style="margin-left: 20px" routerLink="/utilisateur/list-utilisateur">Annuler</button>
         </form>
-        <button type="button" class="btn btn-primary submit">Submit form</button>
-        <button class="btn btn-secondary" style="margin-left: 20px">Cancel</button>
       </div>
     </div>
   </div>

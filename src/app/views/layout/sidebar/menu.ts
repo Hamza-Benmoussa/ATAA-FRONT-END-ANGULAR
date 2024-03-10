@@ -20,16 +20,12 @@ export const MENU: MenuItem[] = [
     icon: 'user',
     subItems: [
       {
-        label: 'list-utilisateur',
+        label: 'list-utilisateurs',
         link: '/utilisateur/list-utilisateur',
       },
       {
         label: 'add-utilisateur',
         link: '/utilisateur/add-utilisateur',
-      },
-      {
-        label: 'update-utilisateur',
-        link: '/utilisateur/update-utilisateur',
       }
     ]
   },
@@ -38,23 +34,45 @@ export const MENU: MenuItem[] = [
     icon: 'users',
     subItems: [
       {
-        label: 'Cropper',
-        link: '/advanced-ui/cropper',
+        label: 'list-members',
+        link: '/members/list-member',
+      },
+      {
+        label: 'add-members',
+        link: '/members/add-member',
       },
     ]
   },
   {
-    /*label: 'Forms'*/label : 'Dowars',
+    label : 'Dowars',
     icon: 'map-pin',
     subItems: [
       {
-        label: 'Basic elements',
-        link: '/form-elements/basic-elements'
+        label: 'list-dowars',
+        link: '/dowar/list-dowar',
       },
+      {
+        label: 'add-dowar',
+        link: '/dowar/add-dowar',
+      }
     ]
   },
   {
     /* label: 'Charts & graphs'*/ label : 'villes',
+    icon: 'map',
+    subItems: [
+      {
+        label: 'list-villes',
+        link: '/ville/list-ville',
+      },
+      {
+        label: 'add-ville',
+        link: '/ville/add-ville',
+      },
+    ]
+  },
+  {
+    label : 'charts & graphs',
     icon: 'map',
     subItems: [
       {
@@ -73,10 +91,13 @@ export const MENU: MenuItem[] = [
     subItems: [
 
       {
-        label: 'Data table',
-        link: '/tables/data-table',
+        label: 'list-bien-essentiel',
+        link: '/biens-essentiel/list-bien',
       },
-
+      {
+        label: 'add-bien-essentiel',
+        link: '/biens-essentiel/add-bien',
+      },
     ]
   },
   {
@@ -85,8 +106,12 @@ export const MENU: MenuItem[] = [
     subItems: [
 
       {
-        label: 'Data table',
-        link: '/tables/data-table',
+        label: 'list-associations',
+        link: '/association/list-association',
+      },
+      {
+        label: 'add-associations',
+        link: '/association/add-association',
       },
 
     ]
@@ -97,10 +122,13 @@ export const MENU: MenuItem[] = [
     subItems: [
 
       {
-        label: 'Data table',
-        link: '/tables/data-table',
+        label: 'list-kafila',
+        link: '/kafila/list-kafila',
       },
-
+      {
+        label: 'add-kafila',
+        link: '/kafila/add-kafila',
+      },
     ]
   },
   {

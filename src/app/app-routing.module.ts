@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BaseComponent } from './views/layout/base/base.component';
-import { AuthGuard } from './core/guard/auth.guard';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 import {AddUtilisateurComponent} from "./components/utilisateur/add-utilisateur/add-utilisateur.component";
 
 
 const routes: Routes = [
-  { path:'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
+  { path:'auth', loadChildren: () => import('./components/auth/auth.module').then(m => m.AuthModule) },
   {
     path: '',
     component: BaseComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: 'dashboard',
@@ -26,11 +24,38 @@ const routes: Routes = [
         loadChildren: () => import('./components/utilisateur/utilisateur.module').then(m => m.UtilisateurModule)
       },
       {
+        path: 'ville',
+        loadChildren: () => import('./components/ville/ville.module').then(m => m.VilleModule)
+      },
+      {
+        path: 'member',
+        loadChildren: () => import('./components/member/member.module').then(m => m.MemberModule)
+      },
+      {
+        path: 'biens-essentiel',
+        loadChildren: () => import('./components/biens-essentiel/biens-Essentiel.module').then(m => m.BiensEssentielModule)
+      },
+      {
+        path: 'kafila',
+        loadChildren: () => import('./components/kafila/kafila.module').then(m => m.KafilaModule)
+      },
+      {
+        path: 'association',
+        loadChildren: () => import('./components/association/association.module').then(m => m.AssociationModule)
+      },
+      {
+        path: 'dowar',
+        loadChildren: () => import('./components/dowar/dowar.module').then(m => m.DowarModule)
+      },
+      {
         path: 'general',
         loadChildren: () => import('./views/pages/general/general.module').then(m => m.GeneralModule)
       },
+      {
+        path: 'auth',
+        loadChildren: () => import('./components/auth/auth.module').then(m => m.AuthModule)
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
   {

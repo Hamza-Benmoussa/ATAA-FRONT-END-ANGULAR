@@ -2,6 +2,7 @@
 export interface MenuItem {
   id?: number;
   label?: string;
+  roles?: string[];
   icon?: string;
   link?: string;
   expanded?: boolean;
