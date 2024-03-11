@@ -32,7 +32,6 @@ export class SidebarComponent implements OnInit, AfterViewInit,OnDestroy {
   constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, router: Router,private authService: AuthService) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-
         this._activateMenuDropdown();
         if (window.matchMedia('(max-width: 991px)').matches) {
           this.document.body.classList.remove('sidebar-open');
@@ -46,10 +45,12 @@ export class SidebarComponent implements OnInit, AfterViewInit,OnDestroy {
     this.menuItems = MENU;
     this.userSub = this.authService.user.subscribe(loggedUser => {
       this.isAuthenticated = !!loggedUser;
+
       if (!this.isAuthenticated) {
         this.initializeState();
       } else if (!!loggedUser) {
         this.setRole(loggedUser);
+        this.filterMenuItems();
       }
     });
     const desktopMedium = window.matchMedia('(min-width:992px) and (max-width: 1199px)');
@@ -78,7 +79,19 @@ export class SidebarComponent implements OnInit, AfterViewInit,OnDestroy {
       this.document.body.classList.toggle('sidebar-open');
     }
   }
-
+  filterMenuItems() {
+    if (this.isAdmin) {
+      // If the user is an admin, show only admin-related menu items
+      this.menuItems = this.menuItems.filter(item => item.roles?.includes('AdminApp'));
+    } else if (this.isPresidant) {
+      // If the user is a president, show only president-related menu items
+      this.menuItems = this.menuItems.filter(item => item.roles?.includes('PresidantAssociation'));
+    } else {
+      // If the user has other roles or no specific role, show a default set of menu items
+      // You can customize this based on your application's requirements
+      this.menuItems = this.menuItems.filter(item => !item.roles || item.roles.length === 0);
+    }
+  }
   setRole(loggedUser: LoggerUser | null) {
     if (loggedUser?.roles.includes("AdminApp"))
       this.isAdmin = true
@@ -134,7 +147,6 @@ export class SidebarComponent implements OnInit, AfterViewInit,OnDestroy {
     this.resetMenuItems();
     this.activateMenuItems();
   }
-
 
 
   resetMenuItems() {

@@ -3,21 +3,25 @@ import { MenuItem } from './menu.model';
 export const MENU: MenuItem[] = [
   {
     label: 'Main',
-    isTitle: true
+    isTitle: true,
+    roles: ['PresidantAssociation','AdminApp'],
   },
   {
     label: 'Dashboard',
     icon: 'home',
+    roles: ['PresidantAssociation','AdminApp'],
     link: '/dashboard'
   },
 
   {
     label: 'Management',
-    isTitle: true
+    isTitle: true,
+    roles: ['PresidantAssociation','AdminApp'],
   },
   {
     label: 'Utilisateur',
     icon: 'user',
+    roles: ['AdminApp'],
     subItems: [
       {
         label: 'list-utilisateurs',
@@ -32,20 +36,22 @@ export const MENU: MenuItem[] = [
   {
     label: 'Members',
     icon: 'users',
+    roles: ['PresidantAssociation'],
     subItems: [
       {
         label: 'list-members',
-        link: '/members/list-member',
+        link: '/member/list-member',
       },
       {
         label: 'add-members',
-        link: '/members/add-member',
+        link: '/member/add-member',
       },
     ]
   },
   {
     label : 'Dowars',
     icon: 'map-pin',
+    roles: ['AdminApp'],
     subItems: [
       {
         label: 'list-dowars',
@@ -58,8 +64,9 @@ export const MENU: MenuItem[] = [
     ]
   },
   {
-    /* label: 'Charts & graphs'*/ label : 'villes',
+   label : 'villes',
     icon: 'map',
+    roles: ['AdminApp'],
     subItems: [
       {
         label: 'list-villes',
@@ -74,6 +81,7 @@ export const MENU: MenuItem[] = [
   {
     label : 'charts & graphs',
     icon: 'map',
+    roles: ['PresidantAssociation','AdminApp'],
     subItems: [
       {
         label: 'ApexCharts',
@@ -88,6 +96,7 @@ export const MENU: MenuItem[] = [
   {
     label: 'Biens-Essentiels',
     icon: 'shopping-bag',
+    roles: ['PresidantAssociation'],
     subItems: [
 
       {
@@ -103,6 +112,7 @@ export const MENU: MenuItem[] = [
   {
     label: 'Association',
     icon: 'database',
+    roles: ['AdminApp'],
     subItems: [
 
       {
@@ -119,6 +129,7 @@ export const MENU: MenuItem[] = [
   {
     label: 'Kafila',
     icon: 'truck',
+    roles: ['PresidantAssociation'],
     subItems: [
 
       {
@@ -133,11 +144,13 @@ export const MENU: MenuItem[] = [
   },
   {
     label: 'Pages',
-    isTitle: true
+    isTitle: true,
+    roles: ['PresidantAssociation','AdminApp'],
   },
   {
     label: 'Special pages',
     icon: 'book',
+    roles: ['PresidantAssociation','AdminApp'],
     subItems: [
       {
         label: 'Faq',
@@ -157,6 +170,7 @@ export const MENU: MenuItem[] = [
   {
     label: 'Authentication',
     icon: 'unlock',
+    roles: ['PresidantAssociation','AdminApp'],
     subItems: [
       {
         label: 'Login',
@@ -171,6 +185,7 @@ export const MENU: MenuItem[] = [
   {
     label: 'Error',
     icon: 'cloud-off',
+    roles: ['PresidantAssociation','AdminApp'],
     subItems: [
       {
         label: '404',

@@ -38,7 +38,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [AddAssociationComponent, ListAssociationComponent,UpdateAssociationComponent,AddAssociationComponent],
+  declarations: [AddAssociationComponent, ListAssociationComponent,UpdateAssociationComponent,AssociationComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
