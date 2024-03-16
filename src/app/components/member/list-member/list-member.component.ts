@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Association} from "../../../model/Association";
+import {Member} from "../../../model/Member";
 
 @Component({
   selector: 'app-list-member',
@@ -7,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListMemberComponent implements OnInit {
 
+  associations: Association[] = [];
+  members: Member[] = [];
   constructor() { }
 
   ngOnInit(): void {

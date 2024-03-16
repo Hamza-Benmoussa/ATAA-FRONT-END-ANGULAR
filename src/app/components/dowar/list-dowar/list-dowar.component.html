@@ -1,1 +1,46 @@
-<p>list-dowar works!</p>
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Dowar</a></li>
+    <li class="breadcrumb-item active" aria-current="page">list-dowar</li>
+  </ol>
+</nav>
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">list-dowar</h6>
+        <div class="search-container">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search by name..." [(ngModel)]="searchTerm" (ngModelChange)="searchDowars()" />
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" style="margin-left: 10px" (click)="searchDowars()">Search</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table id="dataTableExample" class="table" *ngIf="dowars && dowars.length">
+            <thead>
+            <tr>
+              <th>Nom Dowar</th>
+              <th>Ville</th>
+              <th>Nombre de résidant</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let dowar of dowars">
+              <td>{{ dowar.nomDowars }}</td>
+              <td>{{ getVilleNameById(dowar.villeId) }}</td>
+              <td>{{ dowar.nmbrResidant }}</td>
+              <td>
+                <button class="btn btn-info btn-sm" routerLink="/utilisateur/update-utilisateur/{{ dowar.id }}">Update</button>
+                <button class="btn btn-danger btn-sm" style="margin-left: 10px" (click)="deleteDowar(dowar.id)">Delete</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

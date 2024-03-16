@@ -3,7 +3,7 @@ import {Genre} from "./Genre";
 
 
 export interface Member {
-  id?: number;
+  id: number;
   roleMembers: RoleMembers;
   nomMembres: string;
   dateNaissance: Date;
@@ -11,6 +11,6 @@ export interface Member {
   email: string;
   tele: string;
   address: string;
-  associationId?: number;
+  associationId: number;
   deleted: boolean;
 }

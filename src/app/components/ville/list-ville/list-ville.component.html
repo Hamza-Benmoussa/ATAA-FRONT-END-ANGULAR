@@ -29,7 +29,7 @@
             <tr *ngFor="let ville of villes">
               <td>{{ ville.nomVille }}</td>
               <td>
-                <button class="btn btn-info btn-sm" routerLink="/utilisateur/update-ville/{{ville.id}}">Update</button>
+                <button class="btn btn-info btn-sm" routerLink="/ville/update-ville/{{ville.id}}">Update</button>
                 <button class="btn btn-danger btn-sm" style="margin-left: 10px" (click)="deleteVille(ville.id)">Delete</button>
 <!--                <button class="btn btn-secondary btn-sm" style="margin-left: 10px" (click)="showInfo(ville)">Info</button>-->
               </td>

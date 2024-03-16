@@ -1,1 +1,31 @@
-<p>update-ville works!</p>
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Villes</a></li>
+    <li class="breadcrumb-item active" aria-current="page">update-ville</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">UPDATE-VILLE</h6>
+        <form [formGroup]="updateVilleForm" (ngSubmit)="updateVille()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Nom Ville</label>
+                <input type="text" class="form-control" placeholder="Enter Nom Ville" formControlName="nomVille">
+                <div *ngIf="updateVilleForm.get('nomVille')?.hasError('required') && updateVilleForm.get('nomVille')?.touched" class="text-danger">
+                  Le nom de ville est requis.
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary submit">Enregistrer</button>
+          <button type="button" class="btn btn-secondary" style="margin-left: 20px" routerLink="/ville/list-ville">Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

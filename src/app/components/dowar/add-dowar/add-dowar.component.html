@@ -1,1 +1,47 @@
-<p>add-dowar works!</p>
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Dowars</a></li>
+    <li class="breadcrumb-item active" aria-current="page">add-dowar</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">ADD-DOWAR</h6>
+        <form [formGroup]="saveDowarForm" (ngSubmit)="saveDowar()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Nom Dowar</label>
+                <input type="text" class="form-control" placeholder="Enter Nom Dowar" formControlName="nomDowars">
+                <div *ngIf="saveDowarForm.get('nomDowars')?.hasError('required') && saveDowarForm.get('nomDowars')?.touched" class="text-danger">
+                  Le nom du dowar est requis.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Nombre de résidant</label>
+                <input type="number" class="form-control" placeholder="Enter Nombre de résidant" formControlName="nmbrResidant">
+                <div *ngIf="saveDowarForm.get('nmbrResidant')?.hasError('required') && saveDowarForm.get('nmbrResidant')?.touched" class="text-danger">
+                  Le Nombre de résidant est requis.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Ville</label>
+                <select class="form-control" placeholder="Select Nom Ville" formControlName="villeId">
+                  <option *ngFor="let ville of villes" [value]="ville.id">{{ ville.nomVille }}</option>
+                </select>
+                <div *ngIf="saveDowarForm.get('villeId')?.hasError('required') && saveDowarForm.get('villeId')?.touched" class="text-danger">
+                  La ville est requise.
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary submit">Enregistrer</button>
+          <button type="button" class="btn btn-secondary" style="margin-left: 20px" routerLink="/dowar/list-dowar">Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

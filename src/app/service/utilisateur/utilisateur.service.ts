@@ -23,6 +23,9 @@ export class UtilisateurService {
   updateUtilisateur(id : number , utilisateur : Utilisateur):Observable<Utilisateur>{
     return this.http.put<Utilisateur>(`${baseUrl}/updateUtilisateur/${id}`,utilisateur);
   }
+  getUsersWithRole(role: string): Observable<Utilisateur[]> {
+    return this.http.get<Utilisateur[]>(`${baseUrl}/role/${role}`);
+  }
 
   deleteUtilisateur(id:number) :Observable<Utilisateur>{
     return this.http.delete<Utilisateur>(`${baseUrl}/deleteUtilisateur/${id}`);

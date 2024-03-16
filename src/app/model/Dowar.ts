@@ -1,10 +1,10 @@
 import { Kafila } from './Kafila';
 
 export interface Dowar {
-  id?: number;
+  id: number;
   nomDowars: string;
   nmbrResidant: number;
-  villeId?: number;
+  villeId: number;
   kafilas: Kafila[];
   deleted: boolean;
 }
