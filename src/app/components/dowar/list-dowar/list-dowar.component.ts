@@ -64,7 +64,7 @@ export class ListDowarComponent implements OnInit, AfterViewInit {
     const confirmDelete = confirm('Are you sure you want to delete this dowar?');
     if (confirmDelete) {
       this.serviceDowar.deleteDowar(id).subscribe(() => {
-        this.loadData(); // Refresh data after deleting dowar
+        this.loadData();
       });
     }
   }

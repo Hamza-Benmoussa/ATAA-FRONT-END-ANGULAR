@@ -1,1 +1,108 @@
-<p>add-member works!</p>
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Members</a></li>
+    <li class="breadcrumb-item active" aria-current="page">add-member</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">ADD-MEMBER</h6>
+        <form [formGroup]="saveMemberForm" (ngSubmit)="saveMember()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Nom Complete</label>
+                <input type="text" class="form-control" placeholder="Enter le nom de member" formControlName="nomMembres">
+                <div *ngIf="saveMemberForm.get('nomMembres')?.hasError('required') && saveMemberForm.get('nomMembres')?.touched" class="text-danger">
+                  Le nom complet est requis.
+                </div>
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="text" class="form-control" placeholder="Enter email" formControlName="email">
+                <div *ngIf="saveMemberForm.get('email')?.hasError('required') && saveMemberForm.get('email')?.touched" class="text-danger">
+                  L'adresse e-mail est requise.
+                </div>
+                <div *ngIf="saveMemberForm.get('email')?.hasError('email') && saveMemberForm.get('email')?.touched" class="text-danger">
+                  Veuillez saisir une adresse e-mail valide.
+                </div>
+
+              </div>
+            </div><!-- Col -->
+          </div><!-- Row -->
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input type="text" class="form-control" placeholder="Enter address" formControlName="address">
+                <div *ngIf="saveMemberForm.get('address')?.hasError('required') && saveMemberForm.get('address')?.touched" class="text-danger">
+                  L'adresse est requise.
+                </div>
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label">Telephone</label>
+                <input type="text" class="form-control" placeholder="Enter telephone" formControlName="tele">
+                <div *ngIf="saveMemberForm.get('tele')?.hasError('required') && saveMemberForm.get('tele')?.touched" class="text-danger">
+                  Le numéro de téléphone est requis.
+                </div>
+                <div *ngIf="saveMemberForm.get('tele')?.hasError('pattern') && saveMemberForm.get('tele')?.touched" class="text-danger">
+                  Veuillez saisir un numéro de téléphone valide.
+                </div>
+              </div>
+            </div><!-- Col -->
+          </div><!-- Row -->
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label" for="dateNaissance"><strong>Date Naissance</strong></label>
+                <input class="form-control" type="date" id="dateNaissance" placeholder="dateNaissance" name="dateNaissance" formControlName="dateNaissance" required>
+                <div *ngIf="saveMemberForm.get('dateNaissance')?.hasError('required') && saveMemberForm.get('dateNaissance')?.touched" class="text-danger">
+                  La date de naissance est requise.
+                </div>
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label" for="role"><strong>Role</strong></label>
+                <div id="floating-label-1" class="form-floating mb-3">
+                  <select class="form-select form-select" id="role" formControlName="roleMembers">
+                    <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+                  </select>
+                  <label class="form-label" for="role">Sélectionner...</label>
+                </div>
+                <div *ngIf="saveMemberForm.get('roleMembers')?.hasError('required') && saveMemberForm.get('roleMembers')?.touched" class="text-danger">
+                  Le role est requis.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label class="form-label" for="genre"><strong>Genre</strong></label>
+                <div class="form-floating mb-3">
+                  <select class="form-select form-select" id="genre" formControlName="genre">
+                    <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+                  </select>
+                  <label class="form-label" for="genre">Sélectionner...</label>
+                </div>
+                <div *ngIf="saveMemberForm.get('genre')?.hasError('required') && saveMemberForm.get('genre')?.touched" class="text-danger">
+                  Le genre est requis.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary submit">Enregistrer</button>
+          <button type="button" class="btn btn-secondary" style="margin-left: 20px" routerLink="/utilisateur/list-utilisateur">Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

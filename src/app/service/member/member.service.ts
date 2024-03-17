@@ -13,7 +13,7 @@ export class MemberService {
     return this.http.post(`${baseUrl}/ajouterMember`,member);
   }
   getMembers(): Observable<Member[]> {
-    return this.http.get<Member[]>(`${baseUrl}/createdByCurrentUser`);
+    return this.http.get<Member[]>(baseUrl);
   }
 
   getMemberById(id :number) : Observable<Member>{

@@ -12,7 +12,8 @@ export class ListUtilisateurComponent implements OnInit, AfterViewInit {
 
   utilisateurs: Utilisateur[] = [];
   searchTerm: string = '';
-
+  currentPage: number = 1;
+  pageSize: number = 5;
 
   constructor(private serviceUtilisateur: UtilisateurService, private cdRef: ChangeDetectorRef) { }
 
@@ -53,5 +54,20 @@ export class ListUtilisateurComponent implements OnInit, AfterViewInit {
         this.cdRef.detectChanges();
       });
     }
+  }
+  get totalPages(): number {
+    return Math.ceil(this.utilisateurs.length / this.pageSize);
+  }
+
+  get pages(): number[] {
+    const pagesArray: number[] = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pagesArray.push(i);
+    }
+    return pagesArray;
+  }
+
+  setPage(pageNumber: number): void {
+    this.currentPage = pageNumber;
   }
 }

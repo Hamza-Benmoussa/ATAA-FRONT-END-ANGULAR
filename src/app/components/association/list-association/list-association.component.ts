@@ -18,6 +18,8 @@ export class ListAssociationComponent implements OnInit,AfterViewInit{
   villes: Ville[] = [];
   utilisateurs:   Utilisateur[]= [];
   searchTerm: string = '';
+  currentPage: number = 1;
+  pageSize: number = 10;
 
   constructor(private serviceAssociation: AssociationService,
               private utilisateurService: UtilisateurService,
@@ -71,5 +73,20 @@ export class ListAssociationComponent implements OnInit,AfterViewInit{
         this.cdRef.detectChanges();
       });
     }
+  }
+  get totalPages(): number {
+    return Math.ceil(this.associations.length / this.pageSize);
+  }
+
+  get pages(): number[] {
+    const pagesArray: number[] = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pagesArray.push(i);
+    }
+    return pagesArray;
+  }
+
+  setPage(pageNumber: number): void {
+    this.currentPage = pageNumber;
   }
 }
