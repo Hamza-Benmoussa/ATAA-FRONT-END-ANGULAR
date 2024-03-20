@@ -36,6 +36,7 @@
                 </div>
               </div>
               <div class="card-footer">
+                <div *ngIf="loginError" class="alert alert-danger">{{ loginError }}</div>
                 <button type="button" (click)="onLogin()" class="btn btn-sm btn-primary">Login</button>
               </div>
             </form>

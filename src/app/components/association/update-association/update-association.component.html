@@ -1,1 +1,58 @@
-<p>update-association works!</p>
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Association</a></li>
+    <li class="breadcrumb-item active" aria-current="page">update-association</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">UPDATE-ASSOCIATION</h6>
+        <form [formGroup]="updateAssociationForm" (submit)="updateAssociation()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Nom Association</label>
+                <input type="text" class="form-control" formControlName="nomAssociation" placeholder="Enter Nom Association">
+                <div *ngIf="updateAssociationForm.get('nomAssociation')?.hasError('required') && updateAssociationForm.get('nomAssociation')?.touched" class="text-danger">
+                  Le nom de l'association est requis.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Président de l'Association</label>
+                <select class="form-control" formControlName="nomPresidantId">
+                  <option [ngValue]="null" disabled selected>Choisir un Président</option>
+                  <option *ngFor="let utilisateur of utilisateurs" [value]="utilisateur.id">{{ utilisateur.nomComplete }}</option>
+                </select>
+                <div *ngIf="updateAssociationForm.get('nomPresidantId')?.hasError('required') && updateAssociationForm.get('nomPresidantId')?.touched" class="text-danger">
+                  Le Président est requis.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Nombre de série</label>
+                <input type="text" class="form-control" formControlName="nbrSerie" placeholder="Enter Nombre de série">
+                <div *ngIf="updateAssociationForm.get('nbrSerie')?.hasError('required') && updateAssociationForm.get('nbrSerie')?.touched" class="text-danger">
+                  Le nombre de série est requis.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Ville</label>
+                <select class="form-control" formControlName="villeId">
+                  <option [ngValue]="null" disabled selected>Choisir une Ville</option>
+                  <option *ngFor="let ville of villes" [value]="ville.id">{{ ville.nomVille }}</option>
+                </select>
+                <div *ngIf="updateAssociationForm.get('villeId')?.hasError('required') && updateAssociationForm.get('villeId')?.touched" class="text-danger">
+                  La ville est requise.
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary submit">Enregistrer</button>
+          <button type="button" class="btn btn-secondary" style="margin-left: 20px" routerLink="/association/list-association">Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

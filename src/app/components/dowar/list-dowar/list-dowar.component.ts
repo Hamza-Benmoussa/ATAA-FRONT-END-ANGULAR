@@ -16,6 +16,8 @@ export class ListDowarComponent implements OnInit, AfterViewInit {
   dowars: Dowar[] = [];
   searchTerm: string = '';
   villes: Ville[] = [];
+  currentPage: number = 1;
+  pageSize: number = 5;
 
   constructor(
     private serviceDowar: DowarService,
@@ -67,5 +69,20 @@ export class ListDowarComponent implements OnInit, AfterViewInit {
         this.loadData();
       });
     }
+  }
+  get totalPages(): number {
+    return Math.ceil(this.dowars.length / this.pageSize);
+  }
+
+  get pages(): number[] {
+    const pagesArray: number[] = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pagesArray.push(i);
+    }
+    return pagesArray;
+  }
+
+  setPage(pageNumber: number): void {
+    this.currentPage = pageNumber;
   }
 }

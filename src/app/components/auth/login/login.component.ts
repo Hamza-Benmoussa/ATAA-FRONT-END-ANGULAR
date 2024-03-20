@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
 
   loginFormGroup !: FormGroup;
   submitted : boolean =false;
-
+  loginError: string = '';
   constructor(private fb : FormBuilder , private authService : AuthService) { }
 
   ngOnInit(): void {
@@ -21,13 +21,22 @@ export class LoginComponent implements OnInit {
     })
 
   }
-  onLogin(){
-    this.submitted = true
+  onLogin() {
+    this.submitted = true;
+
     if (this.loginFormGroup.invalid) return;
+
     this.authService.login(this.loginFormGroup.value).subscribe({
-      next : loginResponse =>{
+      next: loginResponse => {
         this.authService.saveToken(loginResponse);
-        console.log(loginResponse)
+        console.log(loginResponse);
+      },
+      error: error => {
+        if (error.status === 401) {
+          this.loginError = 'Email or password is incorrect. Please try again.';
+        } else {
+          this.loginError = 'An error occurred while logging in. Please try again later.';
+        }
       }
     });
   }

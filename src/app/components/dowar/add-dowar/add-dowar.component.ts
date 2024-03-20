@@ -12,7 +12,7 @@ import { Ville } from "../../../model/Ville"; // Assuming you have a Ville model
 })
 export class AddDowarComponent implements OnInit {
   saveDowarForm: FormGroup;
-  villes: Ville[] = []; // Array to hold the villes
+  villes: Ville[] = [];
 
   constructor(
     private fb: FormBuilder,
