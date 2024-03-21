@@ -1,1 +1,40 @@
-<p>add-bien works!</p>
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">BiensEssentiels</a></li>
+    <li class="breadcrumb-item active" aria-current="page">add-biensEssentiel</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">ADD-BIENSESSENTIEL</h6>
+        <form [formGroup]="saveBienForm" (ngSubmit)="saveBien()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Nom Complete</label>
+                <input type="text" class="form-control" placeholder="Enter le nom de bien" formControlName="nomBiens">
+                <div *ngIf="saveBienForm.get('nomBiens')?.hasError('required') && saveBienForm.get('nomBiens')?.touched" class="text-danger">
+                  Le nom complet est requis.
+                </div>
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Quantity</label>
+                <input type="number" class="form-control" placeholder="Enter quantity" formControlName="quantity">
+                <div *ngIf="saveBienForm.get('quantity')?.hasError('required') && saveBienForm.get('quantity')?.touched" class="text-danger">
+                  L'adresse e-mail est requise.
+                </div>
+              </div>
+            </div><!-- Col -->
+          </div><!-- Row -->
+          <button type="submit" class="btn btn-primary submit">Enregistrer</button>
+          <button type="button" class="btn btn-secondary" style="margin-left: 20px" routerLink="/utilisateur/list-utilisateur">Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

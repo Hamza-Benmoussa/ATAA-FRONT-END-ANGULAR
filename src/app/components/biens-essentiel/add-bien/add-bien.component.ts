@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {BienEssentielService} from "../../../service/bienEssentiel/bien-essentiel.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-bien',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddBienComponent implements OnInit {
 
-  constructor() { }
+  saveBienForm: FormGroup;
+  constructor(private serviceBien : BienEssentielService, private fb: FormBuilder, private router: Router ) { }
 
   ngOnInit(): void {
-  }
+    this.saveBienForm = this.fb.group({
+      nomBiens: [null,[Validators.required]],
+      quantity: [null,[Validators.required]],
+    });
+    }
+    saveBien(){
+      this.serviceBien.saveBien(this.saveBienForm.value).subscribe((res) =>{
+        this.router.navigateByUrl("/biens-essentiel/list-bien")
+      })
+    }
 
 }
