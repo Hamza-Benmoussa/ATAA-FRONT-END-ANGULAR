@@ -30,4 +30,9 @@ export class UtilisateurService {
   deleteUtilisateur(id:number) :Observable<Utilisateur>{
     return this.http.delete<Utilisateur>(`${baseUrl}/deleteUtilisateur/${id}`);
   }
+
+
+  getNumberOfUtilisateurs() {
+    return this.http.get<number>(`${baseUrl}/count`);
+  }
 }

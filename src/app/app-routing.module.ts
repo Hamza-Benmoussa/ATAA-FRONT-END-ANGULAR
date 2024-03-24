@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('./components/utilisateur/utilisateur.module').then(m => m.UtilisateurModule)
       },
       {
+        path: 'vil-dow',
+        loadChildren: () => import('./components/vil-dow/vil-dow.module').then(m => m.VilDowModule)
+      },
+      {
         path: 'ville',
         loadChildren: () => import('./components/ville/ville.module').then(m => m.VilleModule)
       },

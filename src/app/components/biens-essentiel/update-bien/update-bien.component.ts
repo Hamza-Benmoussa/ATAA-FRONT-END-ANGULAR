@@ -20,15 +20,15 @@ export class UpdateBienComponent implements OnInit {
 
   ngOnInit(): void {
 this.updateBienForm = this.fb.group({
-      nom: [null,[Validators.required]],
-      quantite: [null,[Validators.required]],
+      nomBiens: [null,[Validators.required]],
+      quantity: [null,[Validators.required]],
     });
     this.getBienById()
   }
-  getBienById(){
-    this.serviceBien.getBienById(this.id).subscribe( (res) =>{
+  getBienById() {
+    this.serviceBien.getBienById(this.id).subscribe((res) => {
       this.updateBienForm.patchValue(res);
-    })
+    });
   }
   updateBien(){
     this.serviceBien.updateBien(this.id,this.updateBienForm.value).subscribe((res)=>{

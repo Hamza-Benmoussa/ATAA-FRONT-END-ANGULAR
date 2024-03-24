@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import {MemberService} from "../../../service/member/member.service";
+import {BienEssentielService} from "../../../service/bienEssentiel/bien-essentiel.service";
+import {KafilaService} from "../../../service/kafila/kafila.service";
+import {UtilisateurService} from "../../../service/utilisateur/utilisateur.service";
+import {VilleService} from "../../../service/ville/ville.service";
+import {DowarService} from "../../../service/dowar/dowar.service";
+import {AssociationService} from "../../../service/association/association.service";
+import {AuthService} from "../../../service/auth/auth.service";
+import {Utilisateur} from "../../../model/Utilisateur";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +19,13 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
   preserveWhitespaces: true
 })
 export class DashboardComponent implements OnInit {
-
+  numberOfMembers: number;
+  numberOfBien: number;
+  numberOfVille: number;
+  numberOfDowar : number;
+  numberOfAssociation : number;
+  numberOfUtilisateur : number;
+  isAdminApp: boolean = false;
   /**
    * Apex chart
    */
@@ -20,7 +36,7 @@ export class DashboardComponent implements OnInit {
   public monthlySalesChartOptions: any = {};
   public cloudStorageChartOptions: any = {};
 
-  // colors and font variables for apex chart 
+  // colors and font variables for apex chart
   obj = {
     primary        : "#6571ff",
     secondary      : "#7987a1",
@@ -42,9 +58,49 @@ export class DashboardComponent implements OnInit {
    */
   currentDate: NgbDateStruct;
 
-  constructor(private calendar: NgbCalendar) {}
+
+
+
+  constructor(private calendar: NgbCalendar,
+              private authService: AuthService,
+              private utilisateurService : UtilisateurService,
+              private associationService : AssociationService,
+              private villeService : VilleService,
+              private dowarService : DowarService,
+              private memberService: MemberService,
+              private bienService : BienEssentielService ,
+              private kafilaService : KafilaService) {}
 
   ngOnInit(): void {
+    this.isAdminApp = this.utilisateurService.getUsersWithRole('AdminApp');
+    this.associationService.getNumberOfAssociations().subscribe(
+      (count: number) => this.numberOfAssociation = count,
+      (error: any) => console.log(error)
+    );
+    this.utilisateurService.getNumberOfUtilisateurs().subscribe(
+      (count: number) => this.numberOfUtilisateur = count,
+      (error: any) => console.log(error)
+    );
+    this.villeService.getNumberOfVilles().subscribe(
+      (count: number) => this.numberOfVille = count,
+      (error: any) => console.log(error)
+    );
+    this.dowarService.getNumberOfDowars().subscribe(
+      (count: number) => this.numberOfDowar = count,
+      (error: any) => console.log(error)
+    );
+    this.memberService.getNumberOfMembers().subscribe(
+        (count: number) => this.numberOfMembers = count,
+        (error: any) => console.log(error)
+    );
+    this.bienService.getNumberOfBiens().subscribe(
+      (count: number) => this.numberOfBien = count,
+      (error: any) => console.log(error)
+    );
+    // this.kafilaService.getNumberOfKafilas().subscribe(
+    //   (count: number) => this.numberOfMembers = count,
+    //   (error: any) => console.log(error)
+    // );
     this.currentDate = this.calendar.getToday();
 
     this.customersChartOptions = getCustomerseChartOptions(this.obj);
@@ -433,10 +489,10 @@ function getMonthlySalesChartOptions(obj: any) {
         show: false
       },
     },
-    colors: [obj.primary],  
+    colors: [obj.primary],
     fill: {
       opacity: .9
-    } , 
+    } ,
     grid: {
       padding: {
         bottom: -4
@@ -528,7 +584,7 @@ function getMonthlySalesChartOptions(obj: any) {
           background: obj.light,
           strokeWidth: '100%',
           opacity: 1,
-          margin: 5, 
+          margin: 5,
         },
         dataLabels: {
           showOn: "always",

@@ -48,19 +48,30 @@ export const MENU: MenuItem[] = [
       },
     ]
   },
+    {
+      label : 'Dowars',
+      icon: 'map-pin',
+      roles: ['AdminApp'],
+      subItems: [
+        {
+          label: 'list-dowars',
+          link: '/dowar/list-dowar',
+        },
+        {
+          label: 'add-dowar',
+          link: '/dowar/add-dowar',
+        }
+      ]
+    },
   {
-    label : 'Dowars',
-    icon: 'map-pin',
-    roles: ['AdminApp'],
+label : 'villes-dowars',
+    icon: 'map',
+    roles: ['PresidantAssociation'],
     subItems: [
       {
-        label: 'list-dowars',
-        link: '/dowar/list-dowar',
+        label: 'list-villes-dowars',
+        link: '/vil-dow/list-vd',
       },
-      {
-        label: 'add-dowar',
-        link: '/dowar/add-dowar',
-      }
     ]
   },
   {

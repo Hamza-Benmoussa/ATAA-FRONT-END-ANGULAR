@@ -25,4 +25,8 @@ export class BienEssentielService {
   deleteBien(id:number) :Observable<BiensEssantiel>{
     return this.http.delete<BiensEssantiel>(`${baseUrl}/deleteBiensEssentiel/${id}`);
   }
+
+  getNumberOfBiens() {
+    return this.http.get<number>(`${baseUrl}/count`);
+  }
 }

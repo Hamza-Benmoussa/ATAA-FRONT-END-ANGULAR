@@ -28,4 +28,8 @@ export class VilleService {
   deleteVille(id:number) :Observable<Ville>{
     return this.http.delete<Ville>(`${baseUrl}/deleteVille/${id}`);
   }
+
+  getNumberOfVilles() {
+    return this.http.get<number>(`${baseUrl}/count`);
+  }
 }

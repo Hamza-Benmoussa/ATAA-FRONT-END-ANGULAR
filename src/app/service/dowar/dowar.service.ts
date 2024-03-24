@@ -28,4 +28,8 @@ export class DowarService {
   deleteDowar(id:number) :Observable<Dowar>{
     return this.http.delete<Dowar>(`${baseUrl}/deleteDowar/${id}`);
   }
+
+  getNumberOfDowars() {
+    return this.http.get<number>(`${baseUrl}/count`);
+  }
 }

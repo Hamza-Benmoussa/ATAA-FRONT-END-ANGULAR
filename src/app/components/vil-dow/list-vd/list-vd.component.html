@@ -1,0 +1,42 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Villes</a></li>
+    <li class="breadcrumb-item active" aria-current="page">list-ville</li>
+  </ol>
+</nav>
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">list-villes</h6>
+        <div class="search-container">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search by name..." [(ngModel)]="searchTerm" (ngModelChange)="searchVilles()" />
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" style="margin-left: 10px" (click)="searchVilles()">Search</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table id="dataTableExample" class="table" *ngIf="villes && villes.length">
+            <thead>
+            <tr>
+              <th>Nom-Ville</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ville of villes">
+              <td>{{ ville.nomVille }}</td>
+              <td>
+                <button class="btn btn-info btn-sm" routerLink="/ville/update-ville/{{ville.id}}">Dowar</button>
+                <!--                <button class="btn btn-secondary btn-sm" style="margin-left: 10px" (click)="showInfo(ville)">Info</button>-->
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

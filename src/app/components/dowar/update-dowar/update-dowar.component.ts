@@ -15,6 +15,7 @@ export class UpdateDowarComponent implements OnInit {
   updateDowarForm: FormGroup;
   villes: Ville[] = [];
   id: number;
+  isAdminApp: boolean = false;
 
   constructor(private fb: FormBuilder,
               private activeRoute: ActivatedRoute,

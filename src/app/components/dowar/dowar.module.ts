@@ -25,7 +25,7 @@ const routes: Routes = [
       {
         path: 'list-dowar',
         component: ListDowarComponent,
-        canActivate : [AuthGuardService],data:{role:['AdminApp']}
+        canActivate : [AuthGuardService],data:{role:['AdminApp','PresidantAssociation']}
       },
       {
         path: 'update-dowar/:id',

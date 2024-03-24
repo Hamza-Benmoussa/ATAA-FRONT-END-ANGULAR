@@ -5,6 +5,8 @@ import { DataTable } from "simple-datatables";
 import { Ville } from "../../../model/Ville";
 import { VilleService } from "../../../service/ville/ville.service";
 import { forkJoin } from "rxjs";
+import {AuthService} from "../../../service/auth/auth.service";
+import {UtilisateurService} from "../../../service/utilisateur/utilisateur.service";
 
 @Component({
   selector: 'app-list-dowar',
@@ -18,14 +20,23 @@ export class ListDowarComponent implements OnInit, AfterViewInit {
   villes: Ville[] = [];
   currentPage: number = 1;
   pageSize: number = 5;
+  isAdminApp: boolean = false;
+  isPresidantAssociation: boolean = false;
 
   constructor(
     private serviceDowar: DowarService,
     private serviceVille: VilleService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private serviceUtilisateur : UtilisateurService
   ) { }
 
   ngOnInit(): void {
+    this.serviceUtilisateur.getUsersWithRole('AdminApp').subscribe(userRoles => {
+      this.isAdminApp = userRoles && Array.isArray(userRoles);
+    });
+    this.serviceUtilisateur.getUsersWithRole('PresidantAssociation').subscribe(userRoles => {
+      this.isPresidantAssociation = userRoles && Array.isArray(userRoles);
+    });
     this.loadData(); // Initial data load
     setInterval(() => {
       this.loadData(); // Refresh data every 30 seconds

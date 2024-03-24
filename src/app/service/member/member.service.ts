@@ -15,7 +15,9 @@ export class MemberService {
   getMembers(): Observable<Member[]> {
     return this.http.get<Member[]>(baseUrl);
   }
-
+  getNumberOfMembers(): Observable<number> {
+    return this.http.get<number>(`${baseUrl}/count`);
+  }
   getMemberById(id :number) : Observable<Member>{
     return this.http.get<Member>(`${baseUrl}/${id}`);
   }

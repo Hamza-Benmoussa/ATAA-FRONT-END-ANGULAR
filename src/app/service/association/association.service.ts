@@ -29,4 +29,7 @@ export class AssociationService {
     return this.http.delete<Association>(`${baseUrl}/deleteAssociation/${id}`);
   }
 
+  getNumberOfAssociations() {
+    return this.http.get<number>(`${baseUrl}/count`);
+  }
 }
