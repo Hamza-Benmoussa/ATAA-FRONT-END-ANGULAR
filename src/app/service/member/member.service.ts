@@ -8,23 +8,28 @@ const baseUrl ="http://localhost:8080/api/members"
   providedIn: 'root'
 })
 export class MemberService {
+
   constructor(private http : HttpClient) { }
-  saveMember(member:any) : Observable<any> {
-    return this.http.post(`${baseUrl}/ajouterMember`,member);
+  saveMember(member: any, options?: any): Observable<any> {
+    return this.http.post(`${baseUrl}/ajouterMember`, member, {responseType: 'text'});
+  }
+
+  updateMember(id: number, member: Member, options?: any): Observable<any> {
+    return this.http.put(`${baseUrl}/updateMember/${id}`, member, {responseType: 'text'});
   }
   getMembers(): Observable<Member[]> {
     return this.http.get<Member[]>(baseUrl);
   }
-  getNumberOfMembers(): Observable<number> {
-    return this.http.get<number>(`${baseUrl}/count`);
-  }
+
   getMemberById(id :number) : Observable<Member>{
     return this.http.get<Member>(`${baseUrl}/${id}`);
   }
-  updateMember(id : number , member : Member):Observable<Member>{
-    return this.http.put<Member>(`${baseUrl}/updateMember/${id}`,member);
+
+  deleteMember(id: number, options?: any): Observable<any> {
+    return this.http.delete<any>(`${baseUrl}/deleteMember/${id}`, options);
   }
-  deleteMember(id:number) :Observable<Member>{
-    return this.http.delete<Member>(`${baseUrl}/deleteMember/${id}`);
+
+  getNumberOfMembers() {
+    return this.http.get<number>(`${baseUrl}/count`);
   }
 }

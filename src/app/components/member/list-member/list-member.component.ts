@@ -5,6 +5,7 @@ import {DataTable} from "simple-datatables";
 import {MemberService} from "../../../service/member/member.service";
 import {forkJoin} from "rxjs";
 import {AssociationService} from "../../../service/association/association.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-list-member',
@@ -55,14 +56,36 @@ export class ListMemberComponent implements OnInit ,AfterViewInit {
     }
   }
   deleteMember(id: number): void {
-    const confirmDelete = confirm('Are you sure you want to delete this member?');
-
-    if (confirmDelete) {
-      this.memberService.deleteMember(id).subscribe(() => {
-        this.members = this.members.filter(member => member.id !== id);
-        this.loadData();
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.memberService.deleteMember(id, {responseType: 'text'}).subscribe((response) => {
+          const responseCode = Number(response);
+          if (responseCode === 0) {
+            this.members = this.members.filter(member => member.id !== id);
+            this.cdRef.detectChanges();
+            Swal.fire(
+              'Deleted!',
+              'Member has been deleted.',
+              'success'
+            )
+          } else {
+            Swal.fire(
+              'Failed!',
+              'Failed to delete the member.',
+              'error'
+            )
+          }
+        });
+      }
+    })
   }
   get totalPages(): number {
     return Math.ceil(this.members.length / this.pageSize);

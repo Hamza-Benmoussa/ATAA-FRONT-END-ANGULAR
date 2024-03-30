@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AssociationService} from "../../../service/association/association.service";
 import {UtilisateurService} from "../../../service/utilisateur/utilisateur.service";
 import {VilleService} from "../../../service/ville/ville.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-update-association',
@@ -54,9 +55,23 @@ export class UpdateAssociationComponent implements OnInit {
     })
   }
   updateAssociation(){
-    this.associationService.updateAssociation(this.id,this.updateAssociationForm.value).subscribe((res)=>{
-      if (res.id!=null){
+    this.associationService.updateAssociation(this.id, this.updateAssociationForm.value).subscribe((response) => {
+      const responseCode = Number(response);
+      if (responseCode === 0) {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Association updated successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
         this.router.navigateByUrl("/association/list-association");
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to update association.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     })
   }

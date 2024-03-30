@@ -10,23 +10,26 @@ const baseUrl ="http://localhost:8080/api/biensEssentiels"
 export class BienEssentielService {
 
   constructor(private http : HttpClient) { }
-  saveBien(bien:any): Observable<any> {
-    return this.http.post(`${baseUrl}/ajouterBiensEssentiel`,bien);
-  }
-  getBiens(): Observable<BiensEssantiel[]> {
-    return this.http.get<BiensEssantiel[]>(`${baseUrl}`);
-  }
-  getBienById(id :number) : Observable<BiensEssantiel>{
-    return this.http.get<BiensEssantiel>(`${baseUrl}/${id}`);
-  }
-  updateBien(id : number , bien : BiensEssantiel):Observable<BiensEssantiel>{
-    return this.http.put<BiensEssantiel>(`${baseUrl}/updateBiensEssentiel/${id}`,bien);
-  }
-  deleteBien(id:number) :Observable<BiensEssantiel>{
-    return this.http.delete<BiensEssantiel>(`${baseUrl}/deleteBiensEssentiel/${id}`);
+  saveBiensEssentiel(biensEssentiel: any, options?: any): Observable<any> {
+    return this.http.post(`${baseUrl}/ajouterBiensEssentiel`, biensEssentiel, {responseType: 'text'});
   }
 
-  getNumberOfBiens() {
+  updateBiensEssentiel(id: number, biensEssentiel: BiensEssantiel, options?: any): Observable<any> {
+    return this.http.put(`${baseUrl}/updateBiensEssentiel/${id}`, biensEssentiel, {responseType: 'text'});
+  }
+  getBiensEssentiels(): Observable<BiensEssantiel[]> {
+    return this.http.get<BiensEssantiel[]>(baseUrl);
+  }
+
+  getBiensEssentielById(id :number) : Observable<BiensEssantiel>{
+    return this.http.get<BiensEssantiel>(`${baseUrl}/${id}`);
+  }
+
+  deleteBiensEssentiel(id: number, options?: any): Observable<any> {
+    return this.http.delete<any>(`${baseUrl}/deleteBiensEssentiel/${id}`, options);
+  }
+
+  getNumberOfBiensEssentiels() {
     return this.http.get<number>(`${baseUrl}/count`);
   }
 }

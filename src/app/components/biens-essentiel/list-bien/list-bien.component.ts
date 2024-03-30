@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {BiensEssantiel} from "../../../model/BiensEssentiel";
 import {BienEssentielService} from "../../../service/bienEssentiel/bien-essentiel.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-list-bien',
@@ -23,7 +24,7 @@ export class ListBienComponent implements OnInit {
     }, 30000);
   }
   loadData():void{
-    this.serviceBien.getBiens().subscribe((biens: BiensEssantiel[]) => {
+    this.serviceBien.getBiensEssentiels().subscribe((biens: BiensEssantiel[]) => {
       this.biens = biens;
       this.cdRf.detectChanges();
     });
@@ -37,14 +38,37 @@ export class ListBienComponent implements OnInit {
       this.loadData();
     }
   }
-  deleteBien(id: number): void {
-    const confirmDelete = confirm('Are you sure you want to delete this bien?');
-
-    if (confirmDelete) {
-      this.serviceBien.deleteBien(id).subscribe(() => {
-        this.loadData();
-      });
-    }
+  deleteBiensEssentiel(id: number): void {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.serviceBien.deleteBiensEssentiel(id, {responseType: 'text'}).subscribe((response) => {
+          const responseCode = Number(response);
+          if (responseCode === 0) {
+            this.biens = this.biens.filter(biensEssentiel => biensEssentiel.id !== id);
+            this.cdRf.detectChanges();
+            Swal.fire(
+              'Deleted!',
+              'BiensEssentiel has been deleted.',
+              'success'
+            )
+          } else {
+            Swal.fire(
+              'Failed!',
+              'Failed to delete the biensEssentiel.',
+              'error'
+            )
+          }
+        });
+      }
+    })
   }
   get totalPages(): number {
     return Math.ceil(this.biens.length / this.pageSize);

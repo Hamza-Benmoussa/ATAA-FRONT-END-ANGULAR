@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Utilisateur} from "../../model/Utilisateur";
 import {Association} from "../../model/Association";
 const baseUrl ="http://localhost:8080/api/associations"
 
@@ -11,8 +10,12 @@ const baseUrl ="http://localhost:8080/api/associations"
 export class AssociationService {
 
   constructor(private http : HttpClient) { }
-  saveAssociation(association:any) : Observable<any> {
-    return this.http.post(`${baseUrl}/ajouterAssociation`,association);
+  saveAssociation(association: any, options?: any): Observable<any> {
+    return this.http.post(`${baseUrl}/ajouterAssociation`, association, {responseType: 'text'});
+  }
+
+  updateAssociation(id: number, association: Association, options?: any): Observable<any> {
+    return this.http.put(`${baseUrl}/updateAssociation/${id}`, association, {responseType: 'text'});
   }
   getAssociations(): Observable<Association[]> {
     return this.http.get<Association[]>(baseUrl);
@@ -21,12 +24,9 @@ export class AssociationService {
   getAssociationById(id :number) : Observable<Association>{
     return this.http.get<Association>(`${baseUrl}/${id}`);
   }
-  updateAssociation(id : number , association : Association):Observable<Association>{
-    return this.http.put<Association>(`${baseUrl}/updateAssociation/${id}`,association);
-  }
 
-  deleteAssociation(id:number) :Observable<Association>{
-    return this.http.delete<Association>(`${baseUrl}/deleteAssociation/${id}`);
+  deleteAssociation(id: number, options?: any): Observable<any> {
+    return this.http.delete<any>(`${baseUrl}/deleteAssociation/${id}`, options);
   }
 
   getNumberOfAssociations() {

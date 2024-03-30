@@ -2,6 +2,7 @@ import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core
 import {DataTable} from "simple-datatables";
 import {VilleService} from "../../../service/ville/ville.service";
 import {Ville} from "../../../model/Ville";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-list-ville',
@@ -45,14 +46,36 @@ export class ListVilleComponent implements OnInit, AfterViewInit{
   }
 
   deleteVille(id: number): void {
-    const confirmDelete = confirm('Are you sure you want to delete this Ville ?');
-
-    if (confirmDelete) {
-      this.serviceVille.deleteVille(id).subscribe(() => {
-        this.villes = this.villes.filter(user => user.id !== id);
-        this.cdRef.detectChanges();
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.serviceVille.deleteVille(id, {responseType: 'text'}).subscribe((response) => {
+          const responseCode = Number(response);
+          if (responseCode === 0) {
+            this.villes = this.villes.filter(ville => ville.id !== id);
+            this.cdRef.detectChanges();
+            Swal.fire(
+              'Deleted!',
+              'Ville has been deleted.',
+              'success'
+            )
+          } else {
+            Swal.fire(
+              'Failed!',
+              'Failed to delete the ville.',
+              'error'
+            )
+          }
+        });
+      }
+    })
   }
 
 }

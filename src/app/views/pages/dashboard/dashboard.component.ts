@@ -70,7 +70,7 @@ export class DashboardComponent implements OnInit {
       (count: number) => this.numberOfMembers = count,
       (error: any) => console.log(error)
     );
-    this.bienService.getNumberOfBiens().subscribe(
+    this.bienService.getNumberOfBiensEssentiels().subscribe(
       (count: number) => this.numberOfBien = count,
       (error: any) => console.log(error)
     );

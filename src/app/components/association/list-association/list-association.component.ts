@@ -7,6 +7,7 @@ import {Ville} from "../../../model/Ville";
 import {DataTable} from "simple-datatables";
 import {forkJoin} from "rxjs";
 import {Utilisateur} from "../../../model/Utilisateur";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-list-association',
@@ -66,13 +67,36 @@ export class ListAssociationComponent implements OnInit,AfterViewInit{
     return presidant ? presidant.nomComplete : 'Unknown Presidant'; // Return 'Unknown Presidant' if no matching presidant found
   }
   deleteAssociation(id: number): void {
-    const confirmDelete = confirm('Are you sure you want to delete this association?');
-    if (confirmDelete) {
-      this.serviceAssociation.deleteAssociation(id).subscribe(() => {
-        this.associations = this.associations.filter(association => association.id !== id);
-        this.cdRef.detectChanges();
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.serviceAssociation.deleteAssociation(id, {responseType: 'text'}).subscribe((response) => {
+          const responseCode = Number(response);
+          if (responseCode === 0) {
+            this.associations = this.associations.filter(association => association.id !== id);
+            this.cdRef.detectChanges();
+            Swal.fire(
+              'Deleted!',
+              'Association has been deleted.',
+              'success'
+            )
+          } else {
+            Swal.fire(
+              'Failed!',
+              'Failed to delete the association.',
+              'error'
+            )
+          }
+        });
+      }
+    })
   }
   get totalPages(): number {
     return Math.ceil(this.associations.length / this.pageSize);

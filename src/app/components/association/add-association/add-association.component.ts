@@ -6,6 +6,7 @@ import {AssociationService} from "../../../service/association/association.servi
 import {UtilisateurService} from "../../../service/utilisateur/utilisateur.service";
 import {VilleService} from "../../../service/ville/ville.service";
 import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-add-association',
@@ -53,9 +54,25 @@ export class AddAssociationComponent implements OnInit {
     });
   }
 
-  saveAssociation(): void {
-      this.associationService.saveAssociation(this.saveAssociationForm.value).subscribe(() => {
-        this.router.navigateByUrl('/association/list-association');
-      });
-    }
+  saveAssociation(){
+    this.associationService.saveAssociation(this.saveAssociationForm.value).subscribe((response) => {
+      const responseCode = Number(response);
+      if (responseCode === 0) {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Association added successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        this.router.navigateByUrl("/association/list-association")
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to add association.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
+    })
+  }
 }

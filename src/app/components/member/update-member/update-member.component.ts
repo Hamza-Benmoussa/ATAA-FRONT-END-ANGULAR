@@ -4,6 +4,7 @@ import {Genre} from "../../../model/Genre";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MemberService} from "../../../service/member/member.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-update-member',
@@ -42,9 +43,23 @@ export class UpdateMemberComponent implements OnInit {
     })
   }
   updateMember(){
-    this.serviceMember.updateMember(this.id,this.updateMemberForm.value).subscribe((res)=>{
-      if (res.id!=null){
+    this.serviceMember.updateMember(this.id, this.updateMemberForm.value).subscribe((response) => {
+      const responseCode = Number(response);
+      if (responseCode === 0) {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Member updated successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
         this.router.navigateByUrl("/member/list-member");
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to update member.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     })
   }
