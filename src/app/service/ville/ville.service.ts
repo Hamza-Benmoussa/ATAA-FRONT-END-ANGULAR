@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Utilisateur} from "../../model/Utilisateur";
 import {Ville} from "../../model/Ville";
+import {Dowar} from "../../model/Dowar";
 const baseUrl ="http://localhost:8080/api/villes"
 
 @Injectable({

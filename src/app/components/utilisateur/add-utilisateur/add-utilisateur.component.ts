@@ -4,6 +4,7 @@ import {Genre} from "../../../model/Genre";
 import {UtilisateurService} from "../../../service/utilisateur/utilisateur.service";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-add-utilisateur',
@@ -33,8 +34,24 @@ export class AddUtilisateurComponent implements OnInit {
 
   }
   saveUtilisateur(){
-    this.serviceUtilisateur.saveUtilisateur(this.saveUtilisateurForm.value).subscribe((res) =>{
-      this.router.navigateByUrl("/utilisateur/list-utilisateur")
+    this.serviceUtilisateur.saveUtilisateur(this.saveUtilisateurForm.value).subscribe((response) => {
+      const responseCode = Number(response);
+      if (responseCode === 0) {
+        Swal.fire({
+          title: 'Success!',
+          text: 'User added successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        this.router.navigateByUrl("/utilisateur/list-utilisateur")
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to add user.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
     })
   }
 

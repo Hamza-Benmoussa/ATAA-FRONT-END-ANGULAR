@@ -4,6 +4,7 @@ import {UtilisateurService} from "../../../service/utilisateur/utilisateur.servi
 import {ActivatedRoute, Router} from "@angular/router";
 import {RoleUser} from "../../../model/RoleUser";
 import {Genre} from "../../../model/Genre";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-update-utilisateur',
@@ -43,9 +44,23 @@ export class UpdateUtilisateurComponent implements OnInit {
     })
   }
   updateUtilisateur(){
-    this.serviceUtilisateur.updateUtilisateur(this.id,this.updateUtilisateurForm.value).subscribe((res)=>{
-      if (res.id!=null){
+    this.serviceUtilisateur.updateUtilisateur(this.id, this.updateUtilisateurForm.value).subscribe((response) => {
+      const responseCode = Number(response);
+      if (responseCode === 0) {
+        Swal.fire({
+          title: 'Success!',
+          text: 'User updated successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
         this.router.navigateByUrl("/utilisateur/list-utilisateur");
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to update user.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     })
   }

@@ -89,6 +89,7 @@ label : 'villes-dowars',
       },
     ]
   },
+
   {
     label : 'charts & graphs',
     icon: 'map',

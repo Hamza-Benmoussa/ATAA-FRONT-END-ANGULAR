@@ -1,0 +1,11 @@
+<div *ngFor="let villeDowar of villes">
+  <h4>{{ villeDowar.nomDowars }}</h4>
+  <div *ngFor="let dowar of villeDowar.nomDowars">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ dowar }}</h5>
+        <p class="card-text">Nombre de Kafila : {{ numberOfKafila }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,7 +15,14 @@ export class DowarService {
     return this.http.post(`${baseUrl}/ajouterDowar`,dowar);
   }
   getDowars(): Observable<Dowar[]> {
-    return this.http.get<Dowar[]>(baseUrl);
+    return this.http.get<Dowar[]>(`${baseUrl}/all`);
+  }
+
+  getDowarsForVille(nomVille: number): Observable<Dowar[]> {
+    return this.http.get<Dowar[]>(`${baseUrl}/dowars/${nomVille}`);
+  }
+  getKafilaCountForDowar(dowarId: number): Observable<number> {
+    return this.http.get<number>(`${baseUrl}/totalKafilas/{dowarId}`);
   }
 
   getDowarById(id :number) : Observable<Dowar>{

@@ -21,9 +21,9 @@ export class ListMemberComponent implements OnInit ,AfterViewInit {
               private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.loadData();
+    this.getMember();
     setInterval(() => {
-      this.loadData();
+      this.getMember();
     }, 30000);
   }
 

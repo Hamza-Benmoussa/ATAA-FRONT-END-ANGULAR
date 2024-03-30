@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/co
 import { DataTable } from 'simple-datatables';
 import { UtilisateurService } from '../../../service/utilisateur/utilisateur.service';
 import { Utilisateur } from '../../../model/Utilisateur';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-utilisateur',
@@ -46,15 +47,38 @@ export class ListUtilisateurComponent implements OnInit, AfterViewInit {
   }
 
   deleteUtilisateur(id: number): void {
-    const confirmDelete = confirm('Are you sure you want to delete this user?');
-
-    if (confirmDelete) {
-      this.serviceUtilisateur.deleteUtilisateur(id).subscribe(() => {
-        this.utilisateurs = this.utilisateurs.filter(user => user.id !== id);
-        this.cdRef.detectChanges();
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.serviceUtilisateur.deleteUtilisateur(id, {responseType: 'text'}).subscribe((response) => {
+          const responseCode = Number(response);
+          if (responseCode === 0) {
+            this.utilisateurs = this.utilisateurs.filter(user => user.id !== id);
+            this.cdRef.detectChanges();
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+          } else {
+            Swal.fire(
+              'Failed!',
+              'Failed to delete the file.',
+              'error'
+            )
+          }
+        });
+      }
+    })
   }
+
   get totalPages(): number {
     return Math.ceil(this.utilisateurs.length / this.pageSize);
   }

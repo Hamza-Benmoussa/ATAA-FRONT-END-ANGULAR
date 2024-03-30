@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, NgIterable, OnInit} from '@angular/core';
+import {Dowar} from "../../../model/Dowar";
+import {DowarService} from "../../../service/dowar/dowar.service";
+
 
 @Component({
   selector: 'app-list-dv',
@@ -7,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListDvComponent implements OnInit {
 
-  constructor() { }
+  dowars: Dowar[] = [];
+  numberOfKafila: number;
+villes : Dowar[] = [];
+
+  constructor(private dowarService: DowarService) { }
 
   ngOnInit(): void {
+    // Récupérer les dowars pour chaque ville ici, puis pour chaque dowar :
+    this.dowars.forEach(dowar => {
+      this.getKafilaCountForDowar(dowar.id);
+    });
+  }
+
+  getKafilaCountForDowar(dowarId: number): void {
+    this.dowarService.getKafilaCountForDowar(dowarId).subscribe(
+        (count: any) => {
+         this.numberOfKafila = count;
+      },
+        (error: any) => {
+        console.log('Une erreur s\'est produite lors de la récupération du nombre de kafila pour le dowar', error);
+      }
+    );
   }
 
 }
