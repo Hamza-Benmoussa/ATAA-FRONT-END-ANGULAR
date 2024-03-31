@@ -1,1 +1,11 @@
-<p>update-kafila works!</p>
+<form [formGroup]="statusForm" (ngSubmit)="updateStatus()">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="mb-3">
+        <label class="form-label">Arrived Kafila</label>
+        <input type="checkbox" class="form-check-input" formControlName="arrivedKafila">
+      </div>
+    </div><!-- Col -->
+  </div><!-- Row -->
+  <button type="submit" class="btn btn-primary submit">Update Status</button>
+</form>

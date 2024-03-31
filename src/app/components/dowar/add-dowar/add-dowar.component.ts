@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { VilleService } from "../../../service/ville/ville.service";
 import { DowarService } from "../../../service/dowar/dowar.service";
 import { Router } from "@angular/router";
-import { Ville } from "../../../model/Ville"; // Assuming you have a Ville model
+import { Ville } from "../../../model/Ville";
+import Swal from "sweetalert2"; // Assuming you have a Ville model
 
 @Component({
   selector: 'app-add-dowar',
@@ -37,11 +38,25 @@ export class AddDowarComponent implements OnInit {
     });
   }
 
-  saveDowar() {
-    if (this.saveDowarForm.valid) {
-      this.dowarService.saveDowar(this.saveDowarForm.value).subscribe(() => {
-        this.router.navigateByUrl("/dowar/list-dowar");
-      });
-    }
+  saveDowar(){
+    this.dowarService.saveDowar(this.saveDowarForm.value).subscribe((response) => {
+      const responseCode = Number(response);
+      if (responseCode === 0) {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Dowar added successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+        this.router.navigateByUrl("/dowar/list-dowar")
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to add dowar.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
+    })
   }
 }

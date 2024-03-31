@@ -30,7 +30,7 @@ export class AddBienComponent implements OnInit {
           icon: 'success',
           confirmButtonText: 'OK'
         });
-        this.router.navigateByUrl("/biensEssentiel/list-biensEssentiel")
+        this.router.navigateByUrl("/biens-essentiel/list-bien")
       } else {
         Swal.fire({
           title: 'Error!',

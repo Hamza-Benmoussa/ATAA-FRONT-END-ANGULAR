@@ -19,7 +19,6 @@ import {Observable} from "rxjs";
   preserveWhitespaces: true
 })
 export class DashboardComponent implements OnInit {
-  numberOfMembers: number;
   numberOfBien: number;
   numberOfVille: number;
   numberOfDowar: number;
@@ -28,6 +27,7 @@ export class DashboardComponent implements OnInit {
   isAdminApp: boolean ;
   isPresidantAssoication: boolean;
   currentDate: NgbDateStruct;
+  numberOfMembersForCurrentUser: number;
 
 
   constructor(private calendar: NgbCalendar,
@@ -66,8 +66,10 @@ export class DashboardComponent implements OnInit {
       (error: any) => console.log(error)
     );
 
-    this.memberService.getNumberOfMembers().subscribe(
-      (count: number) => this.numberOfMembers = count,
+    this.memberService.getNumberOfMembersForCurrentUser().subscribe(
+      (count: number) => {
+        this.numberOfMembersForCurrentUser = count;
+      },
       (error: any) => console.log(error)
     );
     this.bienService.getNumberOfBiensEssentiels().subscribe(

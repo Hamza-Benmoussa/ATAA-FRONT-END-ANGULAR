@@ -1,1 +1,76 @@
-<p>list-kafila works!</p>
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Kafila</a></li>
+    <li class="breadcrumb-item active" aria-current="page">list-kafila</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">List-Kafila</h6>
+        <input type="text" class="form-control" placeholder="Search by name..." [(ngModel)]="searchTerm" (ngModelChange)="searchKafilasByDowar()" />
+        <div class="table-responsive">
+          <table id="dataTableExample" class="table" *ngIf="kafilas && kafilas.length">
+            <thead>
+            <tr>
+              <th>Nom Kafila</th>
+              <th>Date Depart</th>
+              <th>Date Arrivee</th>
+              <th>Dowar</th>
+              <th>BiensEssentiel</th>
+              <th>status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let kafila of kafilas">
+              <td>{{ kafila.nomKfila }}</td>
+              <td>{{ convertTimestampToDate(kafila.dateDepart) }}</td>
+              <td>{{ convertTimestampToDate(kafila.dateArrivee) }}</td>
+              <td>{{ getDowarNameById(kafila.dowarId) }}</td>
+
+              <td>
+                <ul>
+                  <li *ngFor="let bienKafila of kafila.bienKafilaDtos">
+                    {{ getBiensEssentielNameById(bienKafila.biensEssentielsId) }}: {{ bienKafila.quantityBienKafila }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <span [ngStyle]="{'color': kafila.arrivedKafila ? 'green' : 'red'}">
+                  {{ kafila.arrivedKafila ? 'Arrived' : 'Not Arrived' }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-info btn-sm" routerLink="/kafila/update-kafila/{{kafila.id}}">Update</button>
+                <button class="btn btn-danger btn-sm" style="margin-left: 10px" (click)="deleteKafila(kafila.id)">Delete</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination-container">
+          <ul class="pagination mt-4" style="float: right">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" href="javascript:void(0)" (click)="setPage(1)">First</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" href="javascript:void(0)" (click)="currentPage = currentPage - 1">Previous</a>
+            </li>
+            <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage === page">
+              <a class="page-link" href="javascript:void(0)" (click)="currentPage = page">{{ page }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a class="page-link" href="javascript:void(0)" (click)="currentPage = currentPage + 1">Next</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a class="page-link" href="javascript:void(0)" (click)="currentPage = totalPages">Last</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

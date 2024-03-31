@@ -29,7 +29,7 @@ export class MemberService {
     return this.http.delete<any>(`${baseUrl}/deleteMember/${id}`, options);
   }
 
-  getNumberOfMembers() {
+  getNumberOfMembersForCurrentUser(): Observable<number> {
     return this.http.get<number>(`${baseUrl}/count`);
   }
 }

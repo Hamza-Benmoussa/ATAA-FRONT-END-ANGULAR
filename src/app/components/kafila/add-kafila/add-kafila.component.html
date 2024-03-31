@@ -1,1 +1,86 @@
-<p>add-kafila works!</p>
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Kafila</a></li>
+    <li class="breadcrumb-item active" aria-current="page">add-kafila</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">ADD-KAFILA</h6>
+        <form [formGroup]="kafilaForm" (ngSubmit)="saveKafila()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Nom Kafila</label>
+                <input type="text" class="form-control" placeholder="Enter Nom Kafila" formControlName="nomKfila">
+                <div *ngIf="kafilaForm.get('nomKfila')?.hasError('required') && kafilaForm.get('nomKfila')?.touched" class="text-danger">
+                  Le nom de l'kafila est requis.
+                </div>
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Dowar</label>
+                <select id="dowarId" class="form-control" formControlName="dowarId">
+                  <option [ngValue]="null" disabled selected>Choisir un Dowar</option>
+                  <option *ngFor="let dowar of dowars" [value]="dowar.id">{{ dowar.nomDowars }}</option>
+                </select>
+                <div *ngIf="kafilaForm.get('dowarId')?.hasError('required') && kafilaForm.get('dowarId')?.touched" class="text-danger">
+                  Le Dowar est requis.
+                </div>
+              </div>
+            </div><!-- Col -->
+          </div><!-- Row -->
+          <div formArrayName="bienKafilaDtos">
+            <div *ngFor="let bienKafila of bienKafilaDtos.controls; let i = index" [formGroupName]="i">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label">BiensEssentiel</label>
+                    <select id="biensEssentielsId" class="form-control" formControlName="biensEssentielsId">
+                      <option [ngValue]="null" disabled selected>Choisir un BiensEssentiel</option>
+                      <option *ngFor="let biensEssentiel of biensEssentiels" [value]="biensEssentiel.id">{{ biensEssentiel.nomBiens }}</option>
+                    </select>
+                  </div>
+                </div><!-- Col -->
+                <div class="col-sm-6">
+                  <div class="mb-3">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" class="form-control" placeholder="Enter quantity" formControlName="quantityBienKafila">
+                  </div>
+                </div><!-- Col -->
+              </div><!-- Row -->
+              <button type="button" class="btn btn-danger" (click)="removeBienKafila(i)">Remove</button>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="addBienKafila()">Add BiensEssentiel</button>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Date Depart</label>
+                <input class="form-control" type="date" id="dateDepart" formControlName="dateDepart" required>
+                <div *ngIf="kafilaForm.get('dateDepart')?.hasError('required') && kafilaForm.get('dateDepart')?.touched" class="text-danger">
+                  La date de depart est requise.
+                </div>
+              </div>
+            </div><!-- Col -->
+            <div class="col-sm-6">
+              <div class="mb-3">
+                <label class="form-label">Date Arrivee</label>
+                <input class="form-control" type="date" id="dateArrivee" formControlName="dateArrivee" required>
+                <div *ngIf="kafilaForm.get('dateArrivee')?.hasError('required') && kafilaForm.get('dateArrivee')?.touched" class="text-danger">
+                  La date de arrivee est requise.
+                </div>
+              </div>
+            </div><!-- Col -->
+          </div><!-- Row -->
+          <button type="submit" class="btn btn-primary submit">Enregister</button>
+          <button type="button" class="btn btn-secondary" style="margin-left: 20px" routerLink="/kafila/list-kafila">Annuler</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

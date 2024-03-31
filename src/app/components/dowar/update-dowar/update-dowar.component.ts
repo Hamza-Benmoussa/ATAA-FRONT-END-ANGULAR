@@ -4,6 +4,7 @@ import { Ville } from "../../../model/Ville";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DowarService } from "../../../service/dowar/dowar.service";
 import { VilleService } from "../../../service/ville/ville.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-update-dowar',
@@ -14,6 +15,7 @@ export class UpdateDowarComponent implements OnInit {
 
   updateDowarForm: FormGroup;
   villes: Ville[] = [];
+  Dowar: any;
   id: number;
   isAdminApp: boolean = false;
 
@@ -26,6 +28,7 @@ export class UpdateDowarComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.params["id"];
     this.updateDowarForm = this.fb.group({
+      id: [this.id],
       nomDowars: [null, [Validators.required]],
       villeId: [null, [Validators.required]],
       nmbrResidant: [null, [Validators.required]]
@@ -46,13 +49,30 @@ export class UpdateDowarComponent implements OnInit {
     });
   }
 
-  updateDowar() {
-    if (this.updateDowarForm.valid) {
-      this.serviceDowar.updateDowar(this.id, this.updateDowarForm.value).subscribe((res) => {
-        if (res.id != null) {
-          this.router.navigateByUrl("/dowar/list-dowar");
+  updateDowar(){
+    const id = this.updateDowarForm.value.id;
+    if (id) {
+      this.serviceDowar.updateDowar(id, this.updateDowarForm.value).subscribe((response) => {
+        const responseCode = Number(response);
+        if (responseCode === 0) {
+          Swal.fire({
+            title: 'Success!',
+            text: 'Dowar updated successfully.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+          this.router.navigateByUrl("/dowar/list-dowar")
+        } else {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Failed to update dowar.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
         }
-      });
+      })
+    } else {
+      console.error('Dowar id is not defined');
     }
   }
 }

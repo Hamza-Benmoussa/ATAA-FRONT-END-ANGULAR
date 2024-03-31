@@ -30,6 +30,7 @@ export class AddMemberComponent implements OnInit {
     });
     }
   saveMember(){
+    console.log(this.saveMemberForm.value);
     this.serviceMember.saveMember(this.saveMemberForm.value).subscribe((response) => {
       const responseCode = Number(response);
       if (responseCode === 0) {

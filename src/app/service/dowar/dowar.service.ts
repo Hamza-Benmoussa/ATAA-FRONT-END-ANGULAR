@@ -11,8 +11,12 @@ const baseUrl ="http://localhost:8080/api/dowars"
 export class DowarService {
 
   constructor(private http : HttpClient) { }
-  saveDowar(dowar:any) : Observable<any> {
-    return this.http.post(`${baseUrl}/ajouterDowar`,dowar);
+  saveDowar(dowar: any, options?: any): Observable<any> {
+    return this.http.post(`${baseUrl}/ajouterDowar`, dowar, {responseType: 'text'});
+  }
+
+  updateDowar(id: number, dowar: Dowar, options?: any): Observable<any> {
+    return this.http.put(`${baseUrl}/updateDowar/${id}`, dowar, {responseType: 'text'});
   }
   getDowars(): Observable<Dowar[]> {
     return this.http.get<Dowar[]>(`${baseUrl}/all`);
@@ -21,22 +25,23 @@ export class DowarService {
   getDowarsForVille(nomVille: number): Observable<Dowar[]> {
     return this.http.get<Dowar[]>(`${baseUrl}/dowars/${nomVille}`);
   }
-  getKafilaCountForDowar(dowarId: number): Observable<number> {
-    return this.http.get<number>(`${baseUrl}/totalKafilas/{dowarId}`);
-  }
+
 
   getDowarById(id :number) : Observable<Dowar>{
     return this.http.get<Dowar>(`${baseUrl}/${id}`);
   }
-  updateDowar(id : number , dowar : Dowar):Observable<Dowar>{
-    return this.http.put<Dowar>(`${baseUrl}/updateDowar/${id}`,dowar);
+
+  deleteDowar(id: number, options?: any): Observable<any> {
+    return this.http.delete<any>(`${baseUrl}/deleteDowar/${id}`, options);
   }
 
-  deleteDowar(id:number) :Observable<Dowar>{
-    return this.http.delete<Dowar>(`${baseUrl}/deleteDowar/${id}`);
-  }
 
   getNumberOfDowars() {
     return this.http.get<number>(`${baseUrl}/count`);
+  }
+
+  getKafilaCountForDowar(dowarId: number) {
+    return this.http.get<number>(`${baseUrl}/kafilaCount/${dowarId}`);
+
   }
 }
