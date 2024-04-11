@@ -6,6 +6,11 @@ import {AddUtilisateurComponent} from "./components/utilisateur/add-utilisateur/
 
 
 const routes: Routes = [
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  {
+    path : 'timeline',
+    loadChildren : () => import('./components/timeline/timeline.module').then(m => m.TimelineModule)
+  },
   { path:'auth', loadChildren: () => import('./components/auth/auth.module').then(m => m.AuthModule) },
   {
     path: '',
@@ -52,14 +57,9 @@ const routes: Routes = [
         loadChildren: () => import('./components/dowar/dowar.module').then(m => m.DowarModule)
       },
       {
-        path: 'general',
-        loadChildren: () => import('./views/pages/general/general.module').then(m => m.GeneralModule)
-      },
-      {
         path: 'auth',
         loadChildren: () => import('./components/auth/auth.module').then(m => m.AuthModule)
       },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },
   {

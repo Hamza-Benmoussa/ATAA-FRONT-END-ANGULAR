@@ -32,4 +32,8 @@ export class VilleService {
   getNumberOfVilles() {
     return this.http.get<number>(`${baseUrl}/count`);
   }
+
+  getVillesWithDowarsAndArrivedKafilas(): Observable<Ville[]> {
+    return this.http.get<Ville[]>(`${baseUrl}/villesWithDowarsAndArrivedKafilas`);
+  }
 }

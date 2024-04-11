@@ -3,7 +3,7 @@
     <div class="card">
       <div class="row">
         <div class="col-md-4 pe-md-0">
-          <div class="auth-side-wrapper" [ngStyle]="{ 'background-image': 'url(https://via.placeholder.com/219x452)' }">
+          <div class="auth-side-wrapper" [ngStyle]="{ 'background-image': 'url(assets/images/ATAA.png)' , 'background-position': '-95px' }">
 
           </div>
         </div>
@@ -39,6 +39,8 @@
                 <div *ngIf="loginError" class="alert alert-danger">{{ loginError }}</div>
                 <button type="button" (click)="onLogin()" class="btn btn-sm btn-primary">Login</button>
               </div>
+             <a routerLink="/timeline"><p>How to create account if you don't have as association ?</p></a>
+
             </form>
           </div>
         </div>

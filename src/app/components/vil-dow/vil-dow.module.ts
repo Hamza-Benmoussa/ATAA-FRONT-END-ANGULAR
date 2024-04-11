@@ -7,8 +7,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {AuthGuardService} from "../../service/guard/auth.guard.service";
 import {VilDowComponent} from "./vil-dow.component";
-import {ListVDComponent} from "./list-vd/list-vd.component";
-import {ListDvComponent} from "./list-dv/list-dv.component";
+import {ListVdComponent} from "./list-vd/list-vd.component";
 
 
 const routes: Routes = [
@@ -18,12 +17,7 @@ const routes: Routes = [
     children: [
       {
         path: 'list-vd',
-        component: ListVDComponent,
-        canActivate : [AuthGuardService],data:{role:['PresidantAssociation']}
-      },
-      {
-        path: 'list-dv',
-        component: ListDvComponent,
+        component: ListVdComponent,
         canActivate : [AuthGuardService],data:{role:['PresidantAssociation']}
       },
 
@@ -32,7 +26,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [ListDvComponent, ListVDComponent,VilDowComponent],
+  declarations: [ListVdComponent ,VilDowComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

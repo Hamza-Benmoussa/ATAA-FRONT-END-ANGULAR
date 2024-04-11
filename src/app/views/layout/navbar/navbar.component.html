@@ -14,12 +14,12 @@
     <ul class="navbar-nav">
       <li class="nav-item nav-profile" ngbDropdown>
         <a class="nav-link" ngbDropdownToggle id="profileDropdown">
-          <img class="wd-30 ht-30 rounded-circle" src="https://www.ehpad70.fr/images/2020/11/17/association.jpg" alt="profile">
+          <img class="wd-60 ht-60 rounded-circle" src="../assets/images/ATAA.png" alt="profile">
         </a>
         <div ngbDropdownMenu class="px-0" aria-labelledby="profileDropdown">
           <div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
             <div class="mb-3">
-              <img class="wd-80 ht-80 rounded-circle" src="https://www.ehpad70.fr/images/2020/11/17/association.jpg" alt="">
+              <img class="wd-80 ht-80 rounded-circle" src="../assets/images/ATAA.png" alt="">
             </div>
             <a *ngIf="isAuthenticated"
                href="#" class="d-flex align-items-center text-white text-decoration-none"  aria-expanded="false">
@@ -28,12 +28,6 @@
             </a>
           </div>
           <ul class="list-unstyled p-1">
-            <li class="dropdown-item py-2">
-              <a routerLink="/general/profile" class="d-flex text-body ms-0">
-                <i class="feather icon-user me-2 icon-md"></i>
-                <span>Profile</span>
-              </a>
-            </li>
             <li class="dropdown-item py-2" *ngIf="isAuthenticated">
               <a (click)="logout()" class="nav-link d-flex text-body ms-0">
                 <i class="feather icon-log-out me-2 icon-md"></i>

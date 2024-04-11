@@ -90,21 +90,21 @@ label : 'villes-dowars',
     ]
   },
 
-  {
-    label : 'charts & graphs',
-    icon: 'map',
-    roles: ['PresidantAssociation','AdminApp'],
-    subItems: [
-      {
-        label: 'ApexCharts',
-        link: '/charts-graphs/apexcharts',
-      },
-      {
-        label: 'ChartJs',
-        link: '/charts-graphs/chartjs',
-      },
-    ]
-  },
+  // {
+  //   label : 'charts & graphs',
+  //   icon: 'map',
+  //   roles: ['PresidantAssociation','AdminApp'],
+  //   subItems: [
+  //     {
+  //       label: 'ApexCharts',
+  //       link: '/charts-graphs/apexcharts',
+  //     },
+  //     {
+  //       label: 'ChartJs',
+  //       link: '/charts-graphs/chartjs',
+  //     },
+  //   ]
+  // },
   {
     label: 'Biens-Essentiels',
     icon: 'shopping-bag',
@@ -154,59 +154,55 @@ label : 'villes-dowars',
       },
     ]
   },
-  {
-    label: 'Pages',
-    isTitle: true,
-    roles: ['PresidantAssociation','AdminApp'],
-  },
-  {
-    label: 'Special pages',
-    icon: 'book',
-    roles: ['PresidantAssociation','AdminApp'],
-    subItems: [
-      {
-        label: 'Faq',
-        link: '/general/faq',
-      },
-
-      {
-        label: 'Profile',
-        link: '/general/profile',
-      },
-      {
-        label: 'Timeline',
-        link: '/general/timeline',
-      }
-    ]
-  },
-  {
-    label: 'Authentication',
-    icon: 'unlock',
-    roles: ['PresidantAssociation','AdminApp'],
-    subItems: [
-      {
-        label: 'Login',
-        link: '/auth/login',
-      },
-      {
-        label: 'Register',
-        link: '/auth/register',
-      },
-    ]
-  },
-  {
-    label: 'Error',
-    icon: 'cloud-off',
-    roles: ['PresidantAssociation','AdminApp'],
-    subItems: [
-      {
-        label: '404',
-        link: '/error/404',
-      },
-      {
-        label: '500',
-        link: '/error/500',
-      },
-    ]
-  },
+  // {
+  //   label: 'Pages',
+  //   isTitle: true,
+  //   roles: ['PresidantAssociation','AdminApp'],
+  // },
+  // {
+  //   label: 'Special pages',
+  //   icon: 'book',
+  //   roles: ['PresidantAssociation','AdminApp'],
+  //   subItems: [
+  //     {
+  //       label: 'Faq',
+  //       link: '/general/faq',
+  //     },
+  //
+  //     {
+  //       label: 'Profile',
+  //       link: '/general/profile',
+  //     },
+  //   ]
+  // },
+  // {
+  //   label: 'Authentication',
+  //   icon: 'unlock',
+  //   roles: ['PresidantAssociation','AdminApp'],
+  //   subItems: [
+  //     {
+  //       label: 'Login',
+  //       link: '/auth/login',
+  //     },
+  //     {
+  //       label: 'Register',
+  //       link: '/auth/register',
+  //     },
+  //   ]
+  // },
+  // {
+  //   label: 'Error',
+  //   icon: 'cloud-off',
+  //   roles: ['PresidantAssociation','AdminApp'],
+  //   subItems: [
+  //     {
+  //       label: '404',
+  //       link: '/error/404',
+  //     },
+  //     {
+  //       label: '500',
+  //       link: '/error/500',
+  //     },
+  //   ]
+  // },
 ];

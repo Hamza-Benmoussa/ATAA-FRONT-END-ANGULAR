@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Utilisateur} from "../../model/Utilisateur";
 import {Dowar} from "../../model/Dowar";
+import {DowarWithKafilaCountDto} from "../../model/DowarWithKafilaCountDto";
 const baseUrl ="http://localhost:8080/api/dowars"
 
 @Injectable({
@@ -43,5 +44,9 @@ export class DowarService {
   getKafilaCountForDowar(dowarId: number) {
     return this.http.get<number>(`${baseUrl}/kafilaCount/${dowarId}`);
 
+  }
+
+  getDowarsWithKafilaCountByVille(villeId: number): Observable<DowarWithKafilaCountDto[]> {
+    return this.http.get<DowarWithKafilaCountDto[]>(`${baseUrl}/villes/${villeId}/dowarsWithKafilaCount`);
   }
 }

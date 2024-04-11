@@ -1,11 +1,26 @@
-<form [formGroup]="statusForm" (ngSubmit)="updateStatus()">
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="mb-3">
-        <label class="form-label">Arrived Kafila</label>
-        <input type="checkbox" class="form-check-input" formControlName="arrivedKafila">
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Kafila</a></li>
+    <li class="breadcrumb-item active" aria-current="page">update-kafila</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">UPDATE-KAFILA</h6>
+        <form [formGroup]="kafilaForm" (ngSubmit)="updateKafila()">
+          <div class="row">
+            <div class="form-check form-switch mt-2">
+              <input class="form-check-input" style="margin-left: -22px; margin-bottom: 30px" type="checkbox" id="arrivedKafila" formControlName="arrivedKafila" checked>
+              <label class="form-check-label" for="arrivedKafila" style="margin-left: 20px">Arrived Kafila</label>
+            </div>
+          </div><!-- Row -->
+          <button type="submit" class="btn btn-primary submit">Enregister</button>
+          <button type="button" class="btn btn-secondary" style="margin-left: 20px" routerLink="/kafila/list-kafila">Annuler</button>
+        </form>
       </div>
-    </div><!-- Col -->
-  </div><!-- Row -->
-  <button type="submit" class="btn btn-primary submit">Update Status</button>
-</form>
+    </div>
+  </div>
+</div>

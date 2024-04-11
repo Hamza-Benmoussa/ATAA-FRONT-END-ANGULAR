@@ -54,13 +54,13 @@
                 </div><!-- Col -->
               </div><!-- Row -->
               <button type="button" class="btn btn-danger" (click)="removeBienKafila(i)">Remove</button>
+              <button type="button" class="btn btn-success" style="margin-left: 5px" (click)="addBienKafila()">Add BiensEssentiel</button>
             </div>
-            <button type="button" class="btn btn-primary" (click)="addBienKafila()">Add BiensEssentiel</button>
           </div>
           <div class="row">
             <div class="col-sm-6">
               <div class="mb-3">
-                <label class="form-label">Date Depart</label>
+                <label class="form-label mt-2">Date Depart</label>
                 <input class="form-control" type="date" id="dateDepart" formControlName="dateDepart" required>
                 <div *ngIf="kafilaForm.get('dateDepart')?.hasError('required') && kafilaForm.get('dateDepart')?.touched" class="text-danger">
                   La date de depart est requise.
