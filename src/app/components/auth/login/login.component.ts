@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../service/auth/auth.service";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,8 @@ export class LoginComponent implements OnInit {
       username : ["" , [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password:["",Validators.required]
     })
-
   }
+
   onLogin() {
     this.submitted = true;
 
@@ -33,9 +34,17 @@ export class LoginComponent implements OnInit {
       },
       error: error => {
         if (error.status === 401) {
-          this.loginError = 'Email or password is incorrect. Please try again.';
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Email or password is incorrect. Please try again.',
+          });
         } else {
-          this.loginError = 'An error occurred while logging in. Please try again later.';
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'An error occurred while logging in. Please try again later.',
+          });
         }
       }
     });

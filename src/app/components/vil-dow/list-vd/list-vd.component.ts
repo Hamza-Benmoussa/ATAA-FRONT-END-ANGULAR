@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {VilleService} from "../../../service/ville/ville.service";
 import {Ville} from "../../../model/Ville";
 
@@ -11,11 +11,26 @@ import {Ville} from "../../../model/Ville";
 export class ListVdComponent implements OnInit {
 
   villesWithDowarsAndArrivedKafilas: Ville[] = [];
+  searchTerm: string = '';
 
-  constructor(private villeService: VilleService) { } // replace DowarService with VilleService
+
+  constructor(private villeService: VilleService , private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.loadVillesWithDowarsAndArrivedKafilas();
+    setInterval(() => {
+      this.loadVillesWithDowarsAndArrivedKafilas();
+      this.cdRef.detectChanges();
+    }, 30000);
+  }
+  searchVilles(): void {
+    if (this.searchTerm.trim() !== '') {
+      this.villesWithDowarsAndArrivedKafilas = this.villesWithDowarsAndArrivedKafilas.filter(user =>
+        user.nomVille.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      this.loadVillesWithDowarsAndArrivedKafilas();
+    }
   }
 
   loadVillesWithDowarsAndArrivedKafilas(): void {

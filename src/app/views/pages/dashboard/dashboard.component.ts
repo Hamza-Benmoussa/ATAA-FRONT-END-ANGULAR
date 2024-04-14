@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   numberOfDowar: number;
   numberOfAssociation: number;
   numberOfUtilisateur: number;
+  numberOfKafila: number;
   isAdminApp: boolean ;
   isPresidantAssoication: boolean;
   currentDate: NgbDateStruct;
@@ -55,6 +56,10 @@ export class DashboardComponent implements OnInit {
     );
     this.associationService.getNumberOfAssociations().subscribe(
       (count: number) => this.numberOfAssociation = count,
+      (error: any) => console.log(error)
+    );
+    this.kafilaService.getNumberOfKafilas().subscribe(
+      (count: number) => this.numberOfKafila = count,
       (error: any) => console.log(error)
     );
     this.villeService.getNumberOfVilles().subscribe(
